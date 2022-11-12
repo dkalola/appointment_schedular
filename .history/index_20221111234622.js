@@ -1,5 +1,5 @@
 const express = require("express");
-const appointments_get = require("./routes/app_api_get.js");
+const appointments_get = require("../app_api_get.js");
 const indexhtml = require("./routes/app.js");
 const app = express();
 
