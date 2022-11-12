@@ -9,7 +9,7 @@ const router = express.Router();
 // done - get all appointments
 // done - get all guests
 // done - get guest by id
-// done - get guest by appointment
+// - get guest by appointment
 // done - get appointment by guest
 // done - get appointment by id
 

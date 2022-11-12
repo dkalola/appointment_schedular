@@ -6,7 +6,7 @@ app.set("view engine", "ejs");
 app.use("/static", express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/views/index.html");
+  res.sendFile(__dirname + "/views/features.html");
 });
 
 app.get("/features", (req, res) => {
