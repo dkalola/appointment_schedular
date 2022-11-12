@@ -29,7 +29,7 @@ app.get("/contact", (req, res) => {
   res.sendFile(__dirname + "/views/contact.html");
 });
 
-app.get("/user", (req, res) => {
-  res.sendFile(__dirname + "/views/user_account.html");
+app.get("/contact", (req, res) => {
+  res.sendFile(__dirname + "/views/contact.html");
 });
 module.exports = app;
