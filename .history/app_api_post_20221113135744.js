@@ -16,7 +16,6 @@ router.use(express.urlencoded({ extended: false }));
 // done - POST guest
 // done - POST User
 // - Connect to db and get the user's data
-// - populate the schema and perform the functions
 
 
 // POST

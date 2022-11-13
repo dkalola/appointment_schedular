@@ -14,9 +14,8 @@ router.use(express.urlencoded({ extended: false }));
 // TODO
 // done - POST appointment
 // done - POST guest
+// done - get all guests
 // done - POST User
-// - Connect to db and get the user's data
-// - populate the schema and perform the functions
 
 
 // POST

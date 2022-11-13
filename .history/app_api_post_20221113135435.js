@@ -12,12 +12,13 @@ router.use(express.urlencoded({ extended: false }));
 
 // ONLY POST EMTHODS
 // TODO
-// done - POST appointment
-// done - POST guest
-// done - POST User
-// - Connect to db and get the user's data
-// - populate the schema and perform the functions
-
+// done - get all
+// done - get all appointments
+// done - get all guests
+// done - get guest by id
+// done - get guest by appointment
+// done - get appointment by guest
+// done - get appointment by id
 
 // POST
 

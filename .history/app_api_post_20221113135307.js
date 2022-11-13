@@ -9,16 +9,6 @@ const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-
-// ONLY POST EMTHODS
-// TODO
-// done - POST appointment
-// done - POST guest
-// done - POST User
-// - Connect to db and get the user's data
-// - populate the schema and perform the functions
-
-
 // POST
 
 router.post("/appointment", async function (req, res) {
@@ -52,6 +42,7 @@ router.post("/user", async function (req, res) {
   user.apiKeys.push({
     key: generateApiKey(),
   });
+
   res.status(201).send(user);
 });
 

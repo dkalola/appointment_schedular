@@ -8,7 +8,6 @@ const app = express();
 // api path
 app.use("/api", appointments_get);
 app.use("/api", appointments_post);
-app.use("/api", appointments_delete);
 
 // home page path
 app.use("/", indexhtml);
