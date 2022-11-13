@@ -49,8 +49,9 @@ router.post("/user", async function (req, res) {
     name: data.name,
     email: data.email,
     phone: data.phone,
-    apiKey: generateApiKey(),
+    apiKeys: generateApiKey(),
   });
+
   res.status(201).send(user);
 });
 

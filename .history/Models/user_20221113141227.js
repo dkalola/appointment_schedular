@@ -1,9 +1,10 @@
+const { Numbers } = require("@mui/icons-material");
 const mongoose = require("mongoose");
 
-// const apiKey = new mongoose.Schema({
-//   key: { type: String },
-//   date: { type: Date, default: Date.now },
-// });
+const apiKey = new mongoose.Schema({
+  key: { type: String },
+  date: { type: Date, default: Date.now },
+});
 
 const dateTimeRange = new mongoose.Schema({
   timeStart: { type: Date },
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: mongoose.Types.ObjectId,
   },
-  apiKey: { type: String, default: undefined },
+  apiKeys: { type: String },
   name: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },

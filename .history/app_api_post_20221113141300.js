@@ -49,7 +49,12 @@ router.post("/user", async function (req, res) {
     name: data.name,
     email: data.email,
     phone: data.phone,
-    apiKey: generateApiKey(),
+    apiKeys: generateApiKey(),
+  });
+
+  // adding api key to the apikey list
+  user.apiKeys.push({
+    key: generateApiKey(),
   });
   res.status(201).send(user);
 });

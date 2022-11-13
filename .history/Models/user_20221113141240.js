@@ -1,3 +1,4 @@
+const { Numbers } = require("@mui/icons-material");
 const mongoose = require("mongoose");
 
 // const apiKey = new mongoose.Schema({
@@ -21,7 +22,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: mongoose.Types.ObjectId,
   },
-  apiKey: { type: String, default: undefined },
+  apiKeys: { type: String, default: undefined },
   name: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },

@@ -13,7 +13,6 @@ router.delete("/appointment/:id", function (req, res) {
   res.send("delete appointment");
 });
 
-// delete apikey
 router.delete("/apikey/:id", function (req, res) {
   res.send("delete api key");
 });

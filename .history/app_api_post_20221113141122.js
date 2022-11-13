@@ -31,7 +31,6 @@ router.post("/appointment", async function (req, res) {
   res.status(201).send(appointment);
 });
 
-// post guest
 router.post("/guest", async function (req, res) {
   const data = req.body;
   const guest = new Guest({
@@ -42,14 +41,17 @@ router.post("/guest", async function (req, res) {
   res.status(201).send(guest);
 });
 
-// post user
 router.post("/user", async function (req, res) {
   const data = req.body;
   const user = new User({
     name: data.name,
     email: data.email,
     phone: data.phone,
-    apiKey: generateApiKey(),
+  });
+
+  // adding api key to the apikey list
+  user.apiKeys.push({
+    key: generateApiKey(),
   });
   res.status(201).send(user);
 });

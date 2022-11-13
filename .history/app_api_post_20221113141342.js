@@ -51,6 +51,7 @@ router.post("/user", async function (req, res) {
     phone: data.phone,
     apiKey: generateApiKey(),
   });
+
   res.status(201).send(user);
 });
 

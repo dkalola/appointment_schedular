@@ -25,7 +25,6 @@ router.put("/user/:id", function (req, res) {
   res.send("update status code");
 });
 
-// update appointment
 router.put("/appointment/:userId/:guestId", function (req, res) {
   res.send("update appointment");
 });
