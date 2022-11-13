@@ -22,11 +22,10 @@ router.post("/appointment", async function (req, res) {
 router.post("/guest", async function (req, res) {
   const data = req.body;
   const guest = new Guest({
-    name: data.name,
-    email: data.email,
-    phone: data.phone,
+    guestID: data.guestID,
+    location: data.location,
   });
-  res.send(guest);
+  res.send(appointment);
 });
 
 function print(string) {

@@ -1,12 +1,20 @@
 const mongoose = require("mongoose");
 
-const appointmentSchema = new mongoose.Schema({
+const guestSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: true,
     default: mongoose.Types.ObjectId,
   },
-  guestID: {
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
     type: String,
     required: true,
   },
@@ -15,10 +23,6 @@ const appointmentSchema = new mongoose.Schema({
     default: Date.now,
     required: true,
   },
-  location: {
-    type: String,
-    required: true,
-  },
 });
 
-module.exports = mongoose.model("Appointment", appointmentSchema);
+module.exports = mongoose.model("Guest", appointmentSchema);

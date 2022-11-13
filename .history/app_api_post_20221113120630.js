@@ -23,8 +23,7 @@ router.post("/guest", async function (req, res) {
   const data = req.body;
   const guest = new Guest({
     name: data.name,
-    email: data.email,
-    phone: data.phone,
+    email: data.location,
   });
   res.send(guest);
 });

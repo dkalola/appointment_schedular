@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
-const appointmentSchema = new mongoose.Schema({
+const guestSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: true,
     default: mongoose.Types.ObjectId,
   },
-  guestID: {
+  name: {
     type: String,
     required: true,
   },
