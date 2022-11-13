@@ -27,7 +27,9 @@ const appointments = [
     guestId: "2398405388",
     date: "01-23-1999",
     time: "9:30 am",
-    location: "Chicago,IL",
+    data: {
+      location: "Chicago,IL",
+    },
   },
 ];
 
