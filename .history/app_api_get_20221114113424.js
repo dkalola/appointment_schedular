@@ -16,7 +16,7 @@ const db = require("./firebase/firebase");
 
 // get all
 router.get("/", function (req, res) {
-  res.send(db);
+  res.send(sample_data);
 });
 
 // get all appointments

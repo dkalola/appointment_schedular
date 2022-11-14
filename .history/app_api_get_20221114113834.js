@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const db = require("./firebase/firebase");
+// const db = require("./firebase/firebase");
 
 // ONLY GET EMTHODS
 // TODO
@@ -16,7 +16,7 @@ const db = require("./firebase/firebase");
 
 // get all
 router.get("/", function (req, res) {
-  res.send(db);
+  res.send(sample_data);
 });
 
 // get all appointments
