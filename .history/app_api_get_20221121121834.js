@@ -144,10 +144,11 @@ router.get("/appointments/:appointmentID", function (req, res) {
         res.send("Check your Subscription!");
       }
       if (value.guests) {
-        const appointment = value.appointments.find(
-          (appointment) => appointment._id === appointmentID
+        const guest = value.guests.find((guest) => guest._id === guestID);
+        const appointments = value.appointments.find(
+          (time) => time.guestId === guest._id
         );
-        res.send(appointment);
+        res.send(appointments);
       } else {
         res.send("No data to display!");
       }

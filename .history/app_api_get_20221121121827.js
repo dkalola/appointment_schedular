@@ -134,7 +134,9 @@ router.get("/appointment/:guestID", function (req, res) {
 // get appointment by id
 router.get("/appointments/:appointmentID", function (req, res) {
   const appointmentID = req.params.appointmentID;
-
+  const appointment = sample_data[0].appointments.find(
+    (appointment) => appointment._id === appointmentID
+  );
   const key = req.query.apiKey; // used for api key
   Validate.checkKey(key).then(
     // validate the key
@@ -144,10 +146,11 @@ router.get("/appointments/:appointmentID", function (req, res) {
         res.send("Check your Subscription!");
       }
       if (value.guests) {
-        const appointment = value.appointments.find(
-          (appointment) => appointment._id === appointmentID
+        const guest = value.guests.find((guest) => guest._id === guestID);
+        const appointments = value.appointments.find(
+          (time) => time.guestId === guest._id
         );
-        res.send(appointment);
+        res.send(appointments);
       } else {
         res.send("No data to display!");
       }

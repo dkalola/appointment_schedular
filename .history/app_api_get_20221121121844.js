@@ -147,7 +147,7 @@ router.get("/appointments/:appointmentID", function (req, res) {
         const appointment = value.appointments.find(
           (appointment) => appointment._id === appointmentID
         );
-        res.send(appointment);
+        res.send(appointments);
       } else {
         res.send("No data to display!");
       }
