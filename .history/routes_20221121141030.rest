@@ -1,0 +1,22 @@
+### appointment api
+### get all
+GET http://localhost:3000/api?apiKey=123abc
+### get one
+GET http://localhost:3000/api/appointments?apiKey=123abc
+
+### post
+POST http://localhost:3000/api
+###
+GET http://localhost:3000/api/appointments?apiKey=123abc
+{
+    "guestID": "2324523423",
+    "location":"Chicago,IL"
+}
+
+### delete
+DELETE http://localhost:3000/api/1
+
+### put
+PUT http://localhost:3000/api/1
+
+
