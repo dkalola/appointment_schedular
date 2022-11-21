@@ -4,11 +4,12 @@ const Appointment = require("./Models/appointment");
 const Guest = require("./Models/guest");
 const User = require("./Models/user");
 const router = express.Router();
-var FirebasegetData = require("./firebase/setData.js");
+var Firebase = require("./firebase/setData.js");
 
 // middleware
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
+
 
 // ONLY POST EMTHODS
 // TODO
@@ -18,13 +19,11 @@ router.use(express.urlencoded({ extended: false }));
 // - Connect to db and get the user's data
 // - populate the schema and perform the functions
 
+
 // POST
 
 router.post("/", async function (req, res) {
-  const key = req.query.apiKey; // used for api key
-  const data = req.body;
-  FirebasegetData.setData("users", data);
-  res.status(201).send(data);
+  Firebase.setData("users", { name: "Yash" });
 });
 
 // post appointment

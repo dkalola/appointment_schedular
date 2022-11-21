@@ -21,10 +21,7 @@ router.use(express.urlencoded({ extended: false }));
 // POST
 
 router.post("/", async function (req, res) {
-  const key = req.query.apiKey; // used for api key
-  const data = req.body;
-  FirebasegetData.setData("users", data);
-  res.status(201).send(data);
+  Firebase.setData("users", { name: "Yash" });
 });
 
 // post appointment
