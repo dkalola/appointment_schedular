@@ -24,8 +24,6 @@ class Validate {
 
     if (user.status > 0) {
       return user;
-    } else {
-      return false;
     }
   }
 }

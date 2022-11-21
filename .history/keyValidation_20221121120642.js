@@ -23,10 +23,10 @@ class Validate {
     var status = false;
 
     if (user.status > 0) {
-      return user;
-    } else {
-      return false;
+      status = true;
     }
+
+    return user;
   }
 }
 

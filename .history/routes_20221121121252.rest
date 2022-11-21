@@ -4,7 +4,7 @@ GET http://localhost:3000/api?apiKey=123abc
 ### get one
 GET http://localhost:3000/api/appointments?apiKey=123abc
 ### post
-POST http://localhost:3000/api
+POST http://localhost:3000/api/1234?apiKey=abc123
 
 ### delete
 DELETE http://localhost:3000/api/1

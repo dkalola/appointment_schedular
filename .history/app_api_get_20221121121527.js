@@ -46,9 +46,7 @@ router.get("/appointments", function (req, res) {
       if (value == false) {
         res.send("Check your Subscription!");
       }
-      if (value.appointments) {
-        res.send(value.appointments);
-      }
+      res.send(value.appointments); // send user oject
     },
     function (error) {
       res.send("ERROR: API Key not found");
@@ -67,9 +65,7 @@ router.get("/guest", function (req, res) {
         res.send("Check your Subscription!");
       }
       if (value.guests) {
-        res.send(value.guests);
-      } else {
-        res.send("No data to display!");
+        res.send(value.guests); // send user oject
       }
     },
     function (error) {
@@ -93,8 +89,6 @@ router.get("/guest/:id", function (req, res) {
       if (value.guests) {
         const sendData = value.guests.find((guest) => guest._id === id);
         res.send(sendData);
-      } else {
-        res.send("No data to display!");
       }
     },
     function (error) {
@@ -106,56 +100,20 @@ router.get("/guest/:id", function (req, res) {
 // get appointment by guest
 router.get("/appointment/:guestID", function (req, res) {
   const guestID = req.params.guestID;
-
-  const key = req.query.apiKey; // used for api key
-  Validate.checkKey(key).then(
-    // validate the key
-    function (value) {
-      // read from firestore
-      if (value == false) {
-        res.send("Check your Subscription!");
-      }
-      if (value.guests) {
-        const guest = value.guests.find((guest) => guest._id === guestID);
-        const appointments = value.appointments.find(
-          (time) => time.guestId === guest._id
-        );
-        res.send(appointments);
-      } else {
-        res.send("No data to display!");
-      }
-    },
-    function (error) {
-      res.send("ERROR: API Key not found");
-    }
+  const guest = sample_data[0].guests.find((guest) => guest._id === guestID);
+  const appointments = sample_data[0].appointments.find(
+    (time) => time.guestId === guest._id
   );
+  res.send(appointments);
 });
 
 // get appointment by id
 router.get("/appointments/:appointmentID", function (req, res) {
   const appointmentID = req.params.appointmentID;
-
-  const key = req.query.apiKey; // used for api key
-  Validate.checkKey(key).then(
-    // validate the key
-    function (value) {
-      // read from firestore
-      if (value == false) {
-        res.send("Check your Subscription!");
-      }
-      if (value.guests) {
-        const appointment = value.appointments.find(
-          (appointment) => appointment._id === appointmentID
-        );
-        res.send(appointment);
-      } else {
-        res.send("No data to display!");
-      }
-    },
-    function (error) {
-      res.send("ERROR: API Key not found");
-    }
+  const appointment = sample_data[0].appointments.find(
+    (appointment) => appointment._id === appointmentID
   );
+  res.send(appointment);
 });
 
 module.exports = router;
