@@ -1,6 +1,6 @@
 const db = require("./firebase/firebase.js");
 
-let ref = db.collection("apiKeyMap");
+// let ref = db.collection("apiKeyMap");
 let userref = db.collection("users");
 
 class Validate {
@@ -23,10 +23,10 @@ class Validate {
     var status = false;
 
     if (user.status > 0) {
-      status = true;
+      return user;
+    } else {
+      return false;
     }
-
-    return status;
   }
 }
 

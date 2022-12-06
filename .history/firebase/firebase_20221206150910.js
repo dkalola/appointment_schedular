@@ -10,10 +10,6 @@ const db = admin.firestore();
 
 let ref = db.collection("users");
 
-// ref.get().then((snapshot) => {
-//   snapshot.forEach((doc) => {
-//     console.log(doc.data());
-//   });
-// });
+
 
 module.exports = db;
