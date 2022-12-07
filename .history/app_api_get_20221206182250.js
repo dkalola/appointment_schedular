@@ -42,9 +42,7 @@ router.get("/", function (req, res) {
 
 // get all appointments
 router.get("/appointments", function (req, res) {
-  const key = req.query.apiKey; // used for api key
-  const data = [];
-  const ref = db.collection("users");
+  const queryParam = req.query; // used for api key
   Validate.checkKey(key).then(
     // validate the key
     function (value) {
@@ -53,43 +51,21 @@ router.get("/appointments", function (req, res) {
         snapshot.forEach((doc) => {
           data.push(doc.data());
         });
-        const sendData = {
-          count: data[0].appointments.length,
-          data: data[0].appointments,
-        };
-        res.send(sendData);
+        res.send(data.appointments);
       });
     },
     function (error) {
       res.send("ERROR: API Key not found");
     }
   );
+  const sendData = sample_data[0].appointments;
+  res.send(sendData);
 });
 
 // get all guests
 router.get("/guest", function (req, res) {
-  const key = req.query.apiKey; // used for api key
-  const data = [];
-  const ref = db.collection("users");
-  Validate.checkKey(key).then(
-    // validate the key
-    function (value) {
-      // read from firestore
-      ref.get().then((snapshot) => {
-        snapshot.forEach((doc) => {
-          data.push(doc.data());
-        });
-        const sendData = {
-          count: data[0].guests.length,
-          data: data[0].guests,
-        };
-        res.send(sendData);
-      });
-    },
-    function (error) {
-      res.send("ERROR: API Key not found");
-    }
-  );
+  const sendData = sample_data[0].guests;
+  res.send(sendData);
 });
 
 // get guests by id

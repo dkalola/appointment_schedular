@@ -43,7 +43,6 @@ const userSchema = new mongoose.Schema({
   },
   appointmentDF: appointmentDF,
   appointments: { type: Array, default: [] },
-  guests: { type: Array, default: [] },
 });
 
 module.exports = mongoose.model("User", userSchema);

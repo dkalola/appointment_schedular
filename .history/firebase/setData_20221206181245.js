@@ -4,10 +4,7 @@ const {
   Timestamp,
   FieldValue,
 } = require("firebase-admin/firestore");
-const {
-  FormatColorResetSharp,
-  FormatListBulleted,
-} = require("@mui/icons-material");
+const { FormatColorResetSharp } = require("@mui/icons-material");
 
 class FirebaseData {
   static setData(collection, data, key) {
@@ -42,10 +39,10 @@ class FirebaseData {
       let refupdate = db.collection("users").doc(doc.id);
       let oldData = doc.data();
 
-      let check = false;
+      let check = true;
 
       if (oldData.appointments) {
-        check = oldData.appointments.find((d) => d.guestID === data.guestID);
+        check = oldData.appointments.find((d) => d.guestId === data.guestId);
         if (check !== undefined) {
           check = true;
         } else {
@@ -53,16 +50,16 @@ class FirebaseData {
         }
       }
 
-      if (check) {
+      if (check || check !== undefined) {
         throw new Error("Guest already exsist!");
       } else {
         // add data
         refupdate.update({
           appointments: FieldValue.arrayUnion({
-            guestID: data.guestID,
             location: data.location,
-            _id: data._id,
             date: data.date,
+            guestId: data.guestId,
+            _id: data._id,
           }),
         });
       }

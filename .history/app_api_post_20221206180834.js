@@ -68,6 +68,7 @@ router.post("/guest", async function (req, res) {
     res.status(404).send("API key is required.");
   }
 
+  console.log(data);
   FirebaseData.createGuest(guest, key).then(
     function (value) {
       res.status(201).send(guest);
@@ -96,14 +97,14 @@ router.post("/user", async function (req, res) {
   // if (key === undefined) {
   //   res.status(404).send("API key is required.");
   // }
-  const check = FirebaseData.createUser(user).then(
-    function (value) {
-      res.status(201).send(user);
-    },
-    function (error) {
-      res.status(404).send("ERROR: " + error.message);
-    }
-  );
+  // const check = FirebaseData.createUser(user).then(
+  //   function (value) {
+  //     res.status(201).send(user);
+  //   },
+  //   function (error) {
+  //     res.status(404).send("ERROR: " + error.message);
+  //   }
+  // );
 });
 
 function print(string) {

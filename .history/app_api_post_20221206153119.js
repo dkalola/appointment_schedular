@@ -39,7 +39,6 @@ router.post("/appointment", async function (req, res) {
   });
 
   const key = req.query.apiKey; // used for api key
-  console.log(key);
   if (key === undefined) {
     res.status(404).send("API key is required.");
   }
@@ -67,7 +66,6 @@ router.post("/guest", async function (req, res) {
   if (key === undefined) {
     res.status(404).send("API key is required.");
   }
-
   FirebaseData.createGuest(guest, key).then(
     function (value) {
       res.status(201).send(guest);
@@ -85,10 +83,7 @@ router.post("/user", async function (req, res) {
     name: data.name,
     email: data.email,
     phone: data.phone,
-    apiKey: generateApiKey({
-      method: "string",
-      pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-    }),
+    apiKey: generateApiKey({ method: "string" }),
   });
 
   console.log(user);

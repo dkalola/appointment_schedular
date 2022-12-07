@@ -45,7 +45,7 @@ class FirebaseData {
       let check = false;
 
       if (oldData.appointments) {
-        check = oldData.appointments.find((d) => d.guestID === data.guestID);
+        check = oldData.appointments.find((d) => d.guestId === data.guestId);
         if (check !== undefined) {
           check = true;
         } else {
@@ -59,10 +59,10 @@ class FirebaseData {
         // add data
         refupdate.update({
           appointments: FieldValue.arrayUnion({
-            guestID: data.guestID,
             location: data.location,
-            _id: data._id,
             date: data.date,
+            guestId: data.guestId,
+            _id: data._id,
           }),
         });
       }

@@ -46,6 +46,8 @@ class FirebaseData {
 
       if (oldData.appointments) {
         check = oldData.appointments.find((d) => d.guestID === data.guestID);
+        // console.log(check);
+        // console.log(data);
         if (check !== undefined) {
           check = true;
         } else {

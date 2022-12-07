@@ -4,10 +4,6 @@ const {
   Timestamp,
   FieldValue,
 } = require("firebase-admin/firestore");
-const {
-  FormatColorResetSharp,
-  FormatListBulleted,
-} = require("@mui/icons-material");
 
 class FirebaseData {
   static setData(collection, data, key) {
@@ -42,27 +38,24 @@ class FirebaseData {
       let refupdate = db.collection("users").doc(doc.id);
       let oldData = doc.data();
 
-      let check = false;
+      let check = true;
 
-      if (oldData.appointments) {
-        check = oldData.appointments.find((d) => d.guestID === data.guestID);
-        if (check !== undefined) {
-          check = true;
-        } else {
-          check = false;
-        }
+      if (!oldData.appointments) {
+        check = false;
+      } else {
+        check = oldData.appointments.find((d) => d.guestId === data.guestId);
       }
 
-      if (check) {
+      if (check || check !== undefined) {
         throw new Error("Guest already exsist!");
       } else {
         // add data
         refupdate.update({
           appointments: FieldValue.arrayUnion({
-            guestID: data.guestID,
             location: data.location,
-            _id: data._id,
             date: data.date,
+            guestId: data.guestId,
+            _id: data._id,
           }),
         });
       }
@@ -81,20 +74,17 @@ class FirebaseData {
       let refupdate = db.collection("users").doc(doc.id);
       let oldData = doc.data();
 
-      let check = false;
+      let check = true;
+      console.log(!oldData.guests);
 
-      if (oldData.guests) {
+      if (!oldData.guests) {
+        check = false;
+      } else {
         check = oldData.guests.find((d) => d.email === data.email);
-        // console.log(check);
-        // console.log(data);
-        if (check !== undefined) {
-          check = true;
-        } else {
-          check = false;
-        }
       }
 
-      if (check) {
+      if (check || check !== undefined) {
+        console.log(check);
         throw new Error("Email already exsist!");
       } else {
         // add data
@@ -112,7 +102,6 @@ class FirebaseData {
   }
 
   static async createUser(data) {
-    console.log(data);
     let ref = db.collection("users");
     const snapshot = await ref.where("email", "==", data.email).get();
     if (!snapshot.exists) {

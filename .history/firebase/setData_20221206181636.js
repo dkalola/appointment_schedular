@@ -46,6 +46,8 @@ class FirebaseData {
 
       if (oldData.appointments) {
         check = oldData.appointments.find((d) => d.guestID === data.guestID);
+        // console.log(check);
+        // console.log(data);
         if (check !== undefined) {
           check = true;
         } else {
@@ -54,7 +56,7 @@ class FirebaseData {
       }
 
       if (check) {
-        throw new Error("Guest already exsist!");
+        throw new Error("Email already exsist!");
       } else {
         // add data
         refupdate.update({

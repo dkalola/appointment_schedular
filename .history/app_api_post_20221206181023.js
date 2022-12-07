@@ -68,6 +68,7 @@ router.post("/guest", async function (req, res) {
     res.status(404).send("API key is required.");
   }
 
+  console.log(data);
   FirebaseData.createGuest(guest, key).then(
     function (value) {
       res.status(201).send(guest);

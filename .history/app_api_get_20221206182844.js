@@ -68,28 +68,28 @@ router.get("/appointments", function (req, res) {
 
 // get all guests
 router.get("/guest", function (req, res) {
-  const key = req.query.apiKey; // used for api key
-  const data = [];
-  const ref = db.collection("users");
-  Validate.checkKey(key).then(
-    // validate the key
-    function (value) {
-      // read from firestore
-      ref.get().then((snapshot) => {
-        snapshot.forEach((doc) => {
-          data.push(doc.data());
-        });
-        const sendData = {
-          count: data[0].guests.length,
-          data: data[0].guests,
-        };
-        res.send(sendData);
-      });
-    },
-    function (error) {
-      res.send("ERROR: API Key not found");
-    }
-  );
+   const key = req.query.apiKey; // used for api key
+   const data = [];
+   const ref = db.collection("users");
+   Validate.checkKey(key).then(
+     // validate the key
+     function (value) {
+       // read from firestore
+       ref.get().then((snapshot) => {
+         snapshot.forEach((doc) => {
+           data.push(doc.data());
+         });
+         const sendData = {
+           count: data[0].appointments.length,
+           data: data[0].appointments,
+         };
+         res.send(sendData);
+       });
+     },
+     function (error) {
+       res.send("ERROR: API Key not found");
+     }
+   );
 });
 
 // get guests by id

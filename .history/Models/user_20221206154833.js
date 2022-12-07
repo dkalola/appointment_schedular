@@ -42,8 +42,6 @@ const userSchema = new mongoose.Schema({
     default: undefined,
   },
   appointmentDF: appointmentDF,
-  appointments: { type: Array, default: [] },
-  guests: { type: Array, default: [] },
 });
 
 module.exports = mongoose.model("User", userSchema);

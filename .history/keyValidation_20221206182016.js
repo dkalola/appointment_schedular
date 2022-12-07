@@ -7,7 +7,7 @@ class Validate {
   static async getData(key) {
     var user = null;
     await userref
-      .where("apiKey", "==", key)
+      .where("key", "==", key)
       .get()
       .then((snapshotuser) => {
         snapshotuser.forEach((doc) => {
