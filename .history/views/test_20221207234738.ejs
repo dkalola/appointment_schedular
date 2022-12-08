@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="static/vendor/line-awesome/css/line-awesome.min.css" rel="stylesheet">
+  <link href="static/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/css/style.css" rel="stylesheet">
+
+
+    <title>Date Picker 1</title>
+
+ 
+</head>
+<body>
+
+     <div class="row text-center">
+        <div class="col"> <p>Select Date and Time to submit the appointment.</p></div>
+    </div>
+
+ 
+    <div class="row d-flex justify-content-center">
+        <div class="col-2"> <input  class="form-control" type="datetime-local"/></div>
+        <% if (type == 1) { %>
+            <div class="col-1"><button type="button" class="btn btn-primary">Submit</button></div>
+        <%} else if (type == 2) { %>
+            <div class="col-1"><button type="button" class="btn btn-success">Submit</button></div>
+
+        <%} else if (type == 3) { %>
+            <div class="col-1"><button type="button" class="btn btn-danger">Submit</button></div>
+
+        <%} else if (type == 4) { %>
+            <div class="col-1"><button type="button" class="btn btn-warning">Submit</button></div>
+
+        <%} else if (type == 5) { %>
+            <div class="col-1"><button type="button" class="btn btn-info">Submit</button></div>
+        
+        <%} else if (type == 6) { %>
+            <div class="col-1"><button type="button" class="btn btn-light">Submit</button></div>
+        
+        <%} else if (type == 7) { %>
+            <div class="col-1"><button type="button" class="btn btn-dark">Submit</button></div>
+        <%} else if (type == 8) { %>
+            <div class="col-1"><button type="button" class="btn btn-link">Submit</button></div>
+        <%} else if (color) { %>
+            <div class="col-1"><button type="button" class="btn" style="background-color: #<%= btnc %>;color:#<%= color %>">Submit</button></div>
+        <% } %>
+    </div>
+   
+    <div class="row text-center">
+        <div class="col"> <small>Powered by: Divyanshu Kalola</small></div>
+    </div>
+
+         
+
+<script>
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://reqbin.com/echo/post/json");
+    xhr.setRequestHeader("Accept", "application/json");
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+        console.log(xhr.status);
+        console.log(xhr.responseText);
+    }};
+
+    let data = `{
+    "Id": 78912,
+    "Customer": "Jason Sweet",
+    "Quantity": 1,
+    "Price": 18.00
+    }`;
+
+    xhr.send(data);
+</script>
+ <!-- Vendor JS Files -->
+  <script src="static/vendor/jquery/jquery.min.js"></script>
+  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="static/vendor/php-email-form/validate.js"></script>
+  <script src="static/vendor/aos/aos.js"></script>
+  <script src="static/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="static/vendor/jquery-sticky/jquery.sticky.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/js/main.js"></script>
+</body>
+</html>

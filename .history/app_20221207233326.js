@@ -15,13 +15,12 @@ app.get("/test2", (req, res) => {
 
 app.get("/test", (req, res) => {
   const type = req.query.type;
-  const btnc = req.query.btnc;
   const color = req.query.color;
-  const key = req.query.apiKey;
-  if (key) {
-    res.render("test", { type: type, btnc: btnc, color: color, apiKey: key });
-  } else {
-    res.status(404).send("API Key Not Found");
+
+  if (type) {
+    res.render("test", { type: type });
+  } else if (color) {
+    res.render("test", { color: color, type: type });
   }
 });
 

@@ -21,7 +21,7 @@ app.get("/test", (req, res) => {
   if (key) {
     res.render("test", { type: type, btnc: btnc, color: color, apiKey: key });
   } else {
-    res.status(404).send("API Key Not Found");
+    res.status(404).render("API Key Not Found");
   }
 });
 
