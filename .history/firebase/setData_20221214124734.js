@@ -174,17 +174,10 @@ class FirebaseData {
     let docID = snapshot.docs[0].id;
 
     let guest = db.collection("users").doc(docID).collection("guests");
-    let ap = db.collection("users").doc(docID).collection("appointments");
 
     var app = (await guest.where("_id", "=", id).get()).docs[0].id;
     guest.doc(app).delete();
-    const res = ap.where("guestID", "=", id);
-
-    res.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        doc.ref.delete();
-      });
-    });
+    const res = 
     return { status: true, message: "Guest deleted successfully" };
   }
 

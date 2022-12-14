@@ -180,7 +180,7 @@ class FirebaseData {
     guest.doc(app).delete();
     const res = ap.where("guestID", "=", id);
 
-    res.get().then(function (querySnapshot) {
+    jobskill_query.get().then(function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
         doc.ref.delete();
       });

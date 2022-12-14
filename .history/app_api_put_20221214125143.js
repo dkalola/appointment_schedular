@@ -1,5 +1,5 @@
 const express = require("express");
-const sample_data = require("./data/test_data.js");
+
 const Appointment = require("./Models/appointment");
 const router = express.Router();
 
@@ -8,18 +8,26 @@ const router = express.Router();
 // - update user information
 // - update sub dates
 // - update status code
-//
+// - update appointment
 
-router.put("/user/:id", function (req, res) {
+// update user data
+router.put("/appointment", function (req, res) {
   res.send("update user data");
 });
 
+// update sub data
 router.put("/user/:id", function (req, res) {
   res.send("update sub data");
 });
 
+// update status code
 router.put("/user/:id", function (req, res) {
-  res.send("update user data");
+  res.send("update status code");
+});
+
+// update appointment
+router.put("/appointment/:userId/:guestId", function (req, res) {
+  res.send("update appointment");
 });
 
 function print(string) {

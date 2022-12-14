@@ -11,7 +11,7 @@ const router = express.Router();
 // - update appointment
 
 // update user data
-router.put("/user/:id", function (req, res) {
+router.put("/user", function (req, res) {
   res.send("update user data");
 });
 

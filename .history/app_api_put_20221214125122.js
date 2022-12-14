@@ -11,18 +11,21 @@ const router = express.Router();
 // - update appointment
 
 // update user data
-router.put("/user/:id", function (req, res) {
+router.put("/user", function (req, res) {
   res.send("update user data");
 });
 
+// update sub data
 router.put("/user/:id", function (req, res) {
   res.send("update sub data");
 });
 
+// update status code
 router.put("/user/:id", function (req, res) {
   res.send("update status code");
 });
 
+// update appointment
 router.put("/appointment/:userId/:guestId", function (req, res) {
   res.send("update appointment");
 });
