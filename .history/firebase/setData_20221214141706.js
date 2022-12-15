@@ -72,14 +72,16 @@ class FirebaseData {
       let time = d.getTime() / 1000;
 
       let appointment = await user
-        .collection("appointments")
+        .collection("appointments", (ref) =>
+          ref.where("guestID", "=", guestID).where("dueDate", "<", end)
+        )
+
         .where("time", ">", d)
-        .where("guestID", "=", guestID)
         .get();
+
       const docData = new Array();
 
-      const ap = appointment.get();
-      ap.forEach((doc) => {
+      appointment.forEach((doc) => {
         docData.push(doc.data());
         user.update({
           reqCountCurrent: FieldValue.increment(1),

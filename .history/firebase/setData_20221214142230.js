@@ -74,10 +74,8 @@ class FirebaseData {
       let appointment = await user
         .collection("appointments")
         .where("time", ">", d)
-        .where("guestID", "=", guestID)
-        .get();
+        .where("guestID", "=", guestID);
       const docData = new Array();
-
       const ap = appointment.get();
       ap.forEach((doc) => {
         docData.push(doc.data());

@@ -66,20 +66,18 @@ class FirebaseData {
 
       return docData;
     } else if (wait && guestID && !id) {
-      console.log("Waiting for guest");
       // get upcoming appointments
-      const d = new Date();
-      let time = d.getTime() / 1000;
+       const d = new Date();
+       let time = d.getTime() / 1000;
 
-      let appointment = await user
-        .collection("appointments")
-        .where("time", ">", d)
-        .where("guestID", "=", guestID)
-        .get();
+       let appointment = await user
+         .collection("appointments")
+         .where("time", "=>", time)
+         .get();
+
       const docData = new Array();
 
-      const ap = appointment.get();
-      ap.forEach((doc) => {
+      appointment.forEach((doc) => {
         docData.push(doc.data());
         user.update({
           reqCountCurrent: FieldValue.increment(1),
