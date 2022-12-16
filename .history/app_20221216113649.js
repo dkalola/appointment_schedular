@@ -5,6 +5,8 @@ const router = express.Router();
 
 
 // firebase
+
+const FirebaseAuthService = require("./firebase/authFirebase");
 var admin = require("firebase-admin");
 
 // middleware
@@ -78,7 +80,7 @@ app.post("/register", async (req, res) => {
 
 // login items
 app.get("/login", (req, res) => {
-
+  
   FirebaseAuthService.createUser();
   res.redirect("/");
 });

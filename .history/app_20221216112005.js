@@ -5,6 +5,12 @@ const router = express.Router();
 
 
 // firebase
+import firebase from "firebase/compat/app";
+import * as firebaseui from "firebaseui";
+import "firebaseui/dist/firebaseui.css";
+// var firebase = require("firebase");
+// var firebaseui = require("firebaseui");
+
 var admin = require("firebase-admin");
 
 // middleware
@@ -78,8 +84,6 @@ app.post("/register", async (req, res) => {
 
 // login items
 app.get("/login", (req, res) => {
-
-  FirebaseAuthService.createUser();
   res.redirect("/");
 });
 
