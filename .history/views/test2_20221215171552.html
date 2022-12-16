@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ 
+</head>
+<body style="background-color: blue;">
+
+
+    <div class="row">
+        <h1>Date Selector Basic:</h1>
+        <div class="col-12"> <iframe id="myIframe" frameborder="0" width="100%" height="500px" style="background-color: transparent;"></iframe></div>
+        <!-- btnc = button color 
+            color = text color
+            type :
+             0 = custom
+             1 - 8 = inbuilt types-->
+
+             <script>
+                var url = new URL("http://localhost:3000/date_select?btnc=FF5733&color=273746&type=0&br=20");
+                url.searchParams.append('apiKey', 'BE2mMvqh14yq7oDB2COaLexsbHN');
+                console.log(url);
+                document.getElementById('myIframe').src = url;
+               
+             </script>
+    </div>
+    <hr>
+
+   
+
+
+</body>
+</html>

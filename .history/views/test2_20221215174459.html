@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+ 
+</head>
+<body style="background-color: blue;">
+
+
+    <div class="row">
+        <h1>Date Selector Basic:</h1>
+        <div class="col-12"> <iframe id="myIframe" class="responsive-iframe" frameborder="0" width="100%" height="500px" style="background-color: transparent;"></iframe></div>
+        <!-- btnc = button color 
+            color = text color
+            br = border radius 
+            type :
+             0 = custom
+             1 - 8 = inbuilt types-->
+
+             <style>
+                .responsive-iframe {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    bottom: 0;
+                    right: 0;
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    }
+             </style>
+
+             <script>
+                var url = new URL("http://localhost:3000/date_select?type=1&br=20&testVersions=1");
+                url.searchParams.append('apiKey', 'test');
+                console.log(url);
+                document.getElementById('myIframe').src = url;
+               
+             </script>
+    </div>
+    <hr>
+
+   
+
+
+</body>
+</html>
