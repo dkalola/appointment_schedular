@@ -59,41 +59,41 @@ router.post("/guest", async function (req, res) {
 });
 
 // post user - TESTED
-// router.post("/user", async function (req, res) {
-//   const data = req.body;
-//   const key = req.query.apiKey;
+router.post("/user", async function (req, res) {
+  const data = req.body;
+  const key = req.query.apiKey;
 
-//   if (await FirebaseData.updateRequest(key)) {
-//     res
-//       .status(404)
-//       .send(
-//         "You reached the maximum allowed limit! \n Please upgrate the plan to continue."
-//       );
-//   } else {
-//     const user = new User({
-//       name: data.name,
-//       email: data.email,
-//       phone: data.phone,
-//       apiKey: generateApiKey({
-//         method: "string",
-//         pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-//       }),
-//     });
+  if (await FirebaseData.updateRequest(key)) {
+    res
+      .status(404)
+      .send(
+        "You reached the maximum allowed limit! \n Please upgrate the plan to continue."
+      );
+  } else {
+    const user = new User({
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      apiKey: generateApiKey({
+        method: "string",
+        pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      }),
+    });
 
-//     if (key === undefined) {
-//       res.status(404).send("API key is required.");
-//     }
+    if (key === undefined) {
+      res.status(404).send("API key is required.");
+    }
 
-//     FirebaseData.createUser(user, key).then(
-//       function (value) {
-//         res.status(201).send(user);
-//       },
-//       function (error) {
-//         res.status(404).send("ERROR: " + error.message);
-//       }
-//     );
-//   }
-// });
+    FirebaseData.createUser(user, key).then(
+      function (value) {
+        res.status(201).send(user);
+      },
+      function (error) {
+        res.status(404).send("ERROR: " + error.message);
+      }
+    );
+  }
+});
 
 
 
