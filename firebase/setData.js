@@ -5,7 +5,9 @@ const { FieldValue } = require("firebase-admin/firestore");
 
 class FirebaseData {
   static setData(collection, data, key) {
-    if (key == "divyanshukalola88") {
+    if (
+      key == "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
+    ) {
       // change this to env
       let ref = db.collection(collection);
       ref.add({
@@ -214,12 +216,18 @@ class FirebaseData {
 
   // create user
   static async createUser(data, key) {
-    if (key == "divyanshukalola88") {
+    if (
+      key == "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
+    ) {
       let ref = db.collection("users");
       const snapshot = await ref.where("email", "==", data.email).get();
 
       if (snapshot.empty) {
-        FirebaseData.setData("users", data, "divyanshukalola88");
+        FirebaseData.setData(
+          "users",
+          data,
+          "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
+        );
         return true;
       } else {
         throw new Error("Email already in exsist!");

@@ -19,7 +19,6 @@ const userSchema = new mongoose.Schema({
   _id: {
     type: String,
     required: true,
-    default: mongoose.Types.ObjectId,
   },
   apiKey: { type: String, default: undefined },
   name: { type: String, required: true },
