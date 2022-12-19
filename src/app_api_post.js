@@ -1,10 +1,10 @@
 const express = require("express");
 const { generateApiKey } = require("generate-api-key");
-const Appointment = require("./Models/appointment");
-const Guest = require("./Models/guest");
-const User = require("./Models/user");
+const Appointment = require("../Models/appointment");
+const Guest = require("../Models/guest");
+const User = require("../Models/user");
 const router = express.Router();
-var FirebaseData = require("./firebase/setData.js");
+var FirebaseData = require("../firebase/setData.js");
 const mongoose = require("mongoose");
 
 // middleware
@@ -111,7 +111,5 @@ router.post("/user", async function (req, res) {
     );
   }
 });
-
-
 
 module.exports = router;

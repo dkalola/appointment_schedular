@@ -1,5 +1,5 @@
 const express = require("express");
-var FirebaseData = require("./firebase/setData.js");
+var FirebaseData = require("../firebase/setData.js");
 const router = express.Router();
 
 // delete appointment

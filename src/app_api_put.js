@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-var FirebaseData = require("./firebase/setData.js");
-const Appointment = require("./Models/appointment");
-const Guest = require("./Models/guest");
+var FirebaseData = require("../firebase/setData.js");
+const Appointment = require("../Models/appointment");
+const Guest = require("../Models/guest");
 
 // update user data
 router.put("/appointment", async function (req, res) {
@@ -40,7 +40,5 @@ router.put("/guest", async function (req, res) {
   var output = await FirebaseData.updateGuest(req.query.guestId, guest, key);
   res.status(201).send(output);
 });
-
-
 
 module.exports = router;

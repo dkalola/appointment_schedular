@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-var Validate = require("./keyValidation.js");
-const db = require("./firebase/firebase.js");
-const FirebaseData = require("./firebase/setData.js");
+var Validate = require("../keyValidation.js");
+const db = require("../firebase/firebase.js");
+const FirebaseData = require("../firebase/setData.js");
 
 // TODO
 
@@ -34,7 +34,7 @@ router.get("/appointments", async function (req, res) {
   const waitTime = req.query.time;
   const key = req.query.apiKey;
   const guestID = req.query.guestId;
-  const id = req.query.appId; 
+  const id = req.query.appId;
 
   let sendData = await FirebaseData.getAppointment(id, guestID, waitTime, key);
   res.send(sendData);
