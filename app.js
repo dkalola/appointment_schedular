@@ -158,6 +158,9 @@ const flash = require("express-flash");
 const session = require("express-session");
 const methodOverride = require("method-override");
 const db = require("./firebase/firebase");
+const User = require("./Models/user");
+const { generateApiKey } = require("generate-api-key");
+const FirebaseData = require("./firebase/setData");
 
 const initializePassport = require("./config/passport");
 initializePassport(
@@ -165,12 +168,12 @@ initializePassport(
   async (email) => {
     let ref = db.collection("users");
     const snapshot = await ref.where("email", "==", email).get();
-    return snapshot.docs[0].data();
+    return snapshot.docs[0].data().email;
   },
   async (id) => {
     let ref = db.collection("users");
     const snapshot = await ref.where("_id", "==", id).get();
-    return snapshot.docs[0].data();
+    return snapshot.docs[0].data()._id;
   }
 );
 
@@ -207,7 +210,7 @@ app.post(
   "/login",
   checkNotAuthenticated,
   passport.authenticate("local", {
-    successRedirect: "user",
+    successRedirect: "/user",
     failureRedirect: "/login",
     failureFlash: true,
   })
@@ -222,40 +225,43 @@ app.post("/register", checkNotAuthenticated, async (req, res) => {
     const data = req.body;
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    if (data._id === undefined) {
-      const user = new User({
-        _id: generateApiKey({
-          method: "string",
-          length: 32,
-          pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-        }),
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        apiKey: generateApiKey({
-          method: "string",
-          length: 30,
-          pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
-        }),
-        password: hashed,
-      });
-      FirebaseData.createUser(user, key).then(
-        function (value) {
-          res.redirect("/login");
-        },
-        function (error) {
-          res.redirect("/register");
-        }
-      );
-    }
+    const user = new User({
+      _id: generateApiKey({
+        method: "string",
+        length: 32,
+        pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      }),
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      apiKey: generateApiKey({
+        method: "string",
+        length: 30,
+        pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+      }),
+      password: hashedPassword,
+    });
+    console.log(user);
+    FirebaseData.createUser(
+      user,
+      "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
+    ).then(
+      function (value) {
+        res.redirect("/login");
+      },
+      function (error) {
+        res.redirect("/register");
+      }
+    );
     // users.push({
     //   id: Date.now().toString(),
     //   name: req.body.name,
     //   email: req.body.email,
     //   password: hashedPassword,
     // });
-    res.redirect("/login");
-  } catch {
+    // res.redirect("/login");
+  } catch (err) {
+    console.log(err);
     res.redirect("/register");
   }
 });
@@ -326,10 +332,6 @@ function checkNotAuthenticated(req, res, next) {
   next();
 }
 
-async function findUserByEmail(email) {
-  let ref = db.collection("users");
-  const snapshot = await ref.where("email", "==", email).get();
-  return snapshot.docs[0].data();
-}
+
 
 module.exports = app;
