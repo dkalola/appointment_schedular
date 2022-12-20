@@ -1,43 +1,271 @@
+// const express = require("express");
+// const app = express();
+// const router = express.Router();
+// var passport = require("passport");
+// const bcrypt = require("bcrypt");
+// const flash = require("express-flash");
+// const session = require("express-session");
+// const user = [];
+
+// const initializePassport = require("./config/passport");
+// initializePassport(passport, (email) =>
+//   users.find((user) => user.email === email)
+// );
+
+// require("./config/passport");
+
+// // firebase
+// var admin = require("firebase-admin");
+
+// // middleware
+// router.use(express.json());
+// router.use(express.urlencoded({ extended: false }));
+// app.use(flash());
+// app.use(
+//   session({
+//     secret: "test", // change to .env variable
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// app.set("view engine", "ejs");
+
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/views/index.html");
+// });
+
+// app.get("/test2", (req, res) => {
+//   res.sendFile(__dirname + "/views/test2.html");
+// });
+
+// app.get("/date_select", (req, res) => {
+//   if (req.query.apiKey) {
+//     res.render("date_select", {
+//       type: req.query.type ? req.query.type : 1,
+//       btnc: req.query.type == 0 && req.query.btnc ? req.query.btnc : "E0E0E0",
+//       color:
+//         req.query.type == 0 && req.query.color ? req.query.color : "646464",
+//       apiKey: req.query.apiKey,
+//       br: req.query.br ? req.query.br : 10,
+//       testVersions: req.query.testVersions == 1 ? 1 : 0,
+//     });
+//   } else {
+//     res.status(404).send("API Key Not Found");
+//   }
+// });
+
+// app.get("/docs", (req, res) => {
+//   res.sendFile(__dirname + "/views/docs.html");
+// });
+
+// app.get("/pricing", (req, res) => {
+//   res.sendFile(__dirname + "/views/pricing.html");
+// });
+
+// app.get("/blog", (req, res) => {
+//   res.sendFile(__dirname + "/views/blog.html");
+// });
+
+// app.get("/blog-single", (req, res) => {
+//   res.sendFile(__dirname + "/views/blog-single.html");
+// });
+
+// app.get("/contact", (req, res) => {
+//   res.sendFile(__dirname + "/views/contact.html");
+// });
+
+// app.get("/user", (req, res) => {
+//   res.sendFile(__dirname + "/views/user_account.html");
+// });
+
+// app.post("/register", async (req, res) => {
+//   const data = req.body;
+//   try {
+//     const hashed = await bcrypt.hash(data.password, 10);
+//     users.push({
+//       id: Date.now().toString(),
+//       name: req.body.name,
+//       email: req.body.email,
+//       password: hashed,
+//     });
+
+//     // if (data._id === undefined) {
+//     //   const user = new User({
+//     //     _id: generateApiKey({
+//     //       method: "string",
+//     //       length: 32,
+//     //       pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+//     //     }),
+//     //     name: data.name,
+//     //     email: data.email,
+//     //     phone: data.phone,
+//     //     apiKey: generateApiKey({
+//     //       method: "string",
+//     //       length: 30,
+//     //       pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+//     //     }),
+//     //     password: hashed,
+//     //   });
+//     //   FirebaseData.createUser(user, key).then(
+//     //     function (value) {
+//     //       res.redirect("/login");
+//     //     },
+//     //     function (error) {
+//     //       res.redirect("/register");
+//     //     }
+//     //   );
+//     // }
+//   } catch (e) {
+//     res.redirect("/register");
+//   }
+// });
+// app.post(
+//   "/login",
+//   passport.authenticate("local", {
+//     successRedirect: "/",
+//     failureRedirect: "/login",
+//     failureFlash: true,
+//   })
+// );
+
+// // login items
+// app.get("/login", (req, res) => {
+//   res.render("login");
+// });
+
+// app.get("/register", (req, res) => {
+//   res.render("register");
+// });
+
+// app.get("/logout", (req, res) => {
+//   res.redirect("/");
+// });
+
+// app.get("/success", (req, res) => {
+//   res.redirect("/");
+// });
+
+// module.exports = app;
+
 const express = require("express");
-var path = require("path");
 const app = express();
-const router = express.Router();
+const bcrypt = require("bcrypt");
+const passport = require("passport");
+const flash = require("express-flash");
+const session = require("express-session");
+const methodOverride = require("method-override");
+const db = require("./firebase/firebase");
 
+const initializePassport = require("./config/passport");
+initializePassport(
+  passport,
+  async (email) => {
+    let ref = db.collection("users");
+    const snapshot = await ref.where("email", "==", email).get();
+    return snapshot.docs[0].data();
+  },
+  async (id) => {
+    let ref = db.collection("users");
+    const snapshot = await ref.where("_id", "==", id).get();
+    return snapshot.docs[0].data();
+  }
+);
 
-// firebase
-var admin = require("firebase-admin");
+const users = [];
 
-// middleware
-router.use(express.json());
-router.use(express.urlencoded({ extended: false }));
+app.set("view-engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+app.use(flash());
+app.use(
+  session({
+    secret: "test",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride("_method"));
 
-app.set("view engine", "ejs");
 app.use("/static", express.static("public"));
 
 app.get("/", (req, res) => {
+  // res.render("index.ejs", { name: req.user.name });
   res.sendFile(__dirname + "/views/index.html");
 });
 
-app.get("/test2", (req, res) => {
-  res.sendFile(__dirname + "/views/test2.html");
+// login system
+
+app.get("/login", checkNotAuthenticated, (req, res) => {
+  res.render("login.ejs");
 });
 
-app.get("/date_select", (req, res) => {
+app.post(
+  "/login",
+  checkNotAuthenticated,
+  passport.authenticate("local", {
+    successRedirect: "user",
+    failureRedirect: "/login",
+    failureFlash: true,
+  })
+);
 
-  if (req.query.apiKey) {
-    res.render("date_select", {
-      type: req.query.type ? req.query.type : 1,
-      btnc: req.query.type == 0 && req.query.btnc ? req.query.btnc : "E0E0E0",
-      color:
-        req.query.type == 0 && req.query.color ? req.query.color : "646464",
-      apiKey: req.query.apiKey,
-      br: req.query.br ? req.query.br : 10,
-      testVersions: req.query.testVersions == 1 ? 1 : 0,
-    });
-  } else {
-    res.status(404).send("API Key Not Found");
+app.get("/register", checkNotAuthenticated, (req, res) => {
+  res.render("register.ejs");
+});
+
+app.post("/register", checkNotAuthenticated, async (req, res) => {
+  try {
+    const data = req.body;
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    if (data._id === undefined) {
+      const user = new User({
+        _id: generateApiKey({
+          method: "string",
+          length: 32,
+          pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        }),
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        apiKey: generateApiKey({
+          method: "string",
+          length: 30,
+          pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        }),
+        password: hashed,
+      });
+      FirebaseData.createUser(user, key).then(
+        function (value) {
+          res.redirect("/login");
+        },
+        function (error) {
+          res.redirect("/register");
+        }
+      );
+    }
+    // users.push({
+    //   id: Date.now().toString(),
+    //   name: req.body.name,
+    //   email: req.body.email,
+    //   password: hashedPassword,
+    // });
+    res.redirect("/login");
+  } catch {
+    res.redirect("/register");
   }
 });
+
+app.delete("/logout", (req, res) => {
+  req.logOut();
+  res.redirect("/login");
+});
+
+// other links
 
 app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
@@ -59,37 +287,49 @@ app.get("/contact", (req, res) => {
   res.sendFile(__dirname + "/views/contact.html");
 });
 
-app.get("/user", (req, res) => {
+app.get("/user", checkAuthenticated, (req, res) => {
   res.sendFile(__dirname + "/views/user_account.html");
 });
 
-app.post("/register", async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await admin.auth().createUser({
-      email,
-      password,
+app.get("/test2", (req, res) => {
+  res.sendFile(__dirname + "/views/test2.html");
+});
+
+app.get("/date_select", (req, res) => {
+  if (req.query.apiKey) {
+    res.render("date_select", {
+      type: req.query.type ? req.query.type : 1,
+      btnc: req.query.type == 0 && req.query.btnc ? req.query.btnc : "E0E0E0",
+      color:
+        req.query.type == 0 && req.query.color ? req.query.color : "646464",
+      apiKey: req.query.apiKey,
+      br: req.query.br ? req.query.br : 10,
+      testVersions: req.query.testVersions == 1 ? 1 : 0,
     });
-    res.send(user);
-  } catch (e) {
-    res.send(e);
+  } else {
+    res.status(404).send("API Key Not Found");
   }
 });
 
-// login items
-app.get("/login", (req, res) => {
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
 
-  FirebaseAuthService.createUser();
-  res.redirect("/");
-});
+  res.redirect("/login");
+}
 
-app.get("/logout", (req, res) => {
-  res.redirect("/");
-});
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/");
+  }
+  next();
+}
 
-app.get("/success", (req, res) => {
-  res.redirect("/");
-});
-
+async function findUserByEmail(email) {
+  let ref = db.collection("users");
+  const snapshot = await ref.where("email", "==", email).get();
+  return snapshot.docs[0].data();
+}
 
 module.exports = app;

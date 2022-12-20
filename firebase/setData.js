@@ -20,6 +20,7 @@ class FirebaseData {
         statusCode: data.statusCode,
         _id: data._id,
         date: data.date,
+        password: data.password,
       });
     } else {
       throw new Error("API Key does not match our records!");

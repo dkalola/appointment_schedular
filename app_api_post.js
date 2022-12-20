@@ -80,6 +80,7 @@ router.post("/user", async function (req, res) {
         length: 30,
         pool: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
       }),
+      password: data.password,
     });
     FirebaseData.createUser(user, key).then(
       function (value) {
