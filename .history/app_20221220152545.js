@@ -187,11 +187,6 @@
 const express = require("express");
 const app = express();
 const csrf = require("csurf");
-const bodyParser = require("body-parser");
-const admin = require("firebase-admin");
-const cookieParser = require("cookie-parser");
-
-// const serviceAccount = require("./serviceAccountAuth.json");
 
 // middlewares
 app.set("view-engine", "ejs");
@@ -209,10 +204,4 @@ app.get("/register", (req, res) => {
   res.sendFile(__dirname + "/views/signup.html");
 });
 
-app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/views/index.html");
-});
-
-
-// exports
 module.exports = app;

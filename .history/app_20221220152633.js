@@ -191,8 +191,6 @@ const bodyParser = require("body-parser");
 const admin = require("firebase-admin");
 const cookieParser = require("cookie-parser");
 
-// const serviceAccount = require("./serviceAccountAuth.json");
-
 // middlewares
 app.set("view-engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
