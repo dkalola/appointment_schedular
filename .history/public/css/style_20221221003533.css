@@ -655,7 +655,7 @@ section {
   width: 100%;
   overflow: hidden;
   position: absolute;
-  z-index: 0;
+  z-index: 1;
   bottom: -150px;
 }
 
@@ -813,8 +813,7 @@ section {
 
 .site-navbar .site-navigation .site-menu > li > a:hover {
   color: #ffffff;
-  font-weight: bolder;
-  font-size: 20px;
+
 }
 
 .site-navbar .site-navigation .site-menu > li.active > a {

@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register</title>
-       <!-- Favicons -->
+    <title>Firebase Server Auth</title>
+     <!-- Favicons -->
   <link href="static/img/favicon.png" rel="icon">
   <link href="static/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -21,9 +21,12 @@
   <!-- Template Main CSS File -->
   <link href="static/css/style.css" rel="stylesheet">
 
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js" defer ></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js" defer ></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer ></script>
   </head>
   <body>
-       <!-- ======= Mobile Menu ======= -->
+    <!-- ======= Mobile Menu ======= -->
   <div class="site-mobile-menu site-navbar-target">
     <div class="site-mobile-menu-header">
       <div class="site-mobile-menu-close mt-3">
@@ -33,8 +36,7 @@
     <div class="site-mobile-menu-body"></div>
   </div>
 
-
-    <!-- ======= Header ======= -->
+  <!-- ======= Header ======= -->
   <header class="site-navbar js-sticky-header site-navbar-target" role="banner">
 
     <div class="container">
@@ -80,7 +82,6 @@
  
 
     <main id="main">
-
       <section class="hero-section inner-page">
       <div class="wave">
 
@@ -99,10 +100,8 @@
           <div class="col-12">
             <div class="row justify-content-center">
               <div class="col-md-10 text-center hero-text">
-                <h1 data-aos="fade-up" data-aos-delay="">Register</h1>
+                <h1 data-aos="fade-up" data-aos-delay="">Login</h1>
                 <p class="mb-1" data-aos="fade-up" data-aos-delay="100">Enter your email and password below!</p>
-                 <p class="mb-1 mt-5" data-aos="fade-up" data-aos-delay="100">Already have an account?!</p>
-                  <p class="mb-1" data-aos="fade-up" data-aos-delay="100">Log in <a href="/login" style="color: rgb(0, 208, 255); text-decoration: underline;" >here</a></p>
                 <!-- <p class="mb-5" data-aos="fade-up" data-aos-delay="100">Subscription <a href="#" class="text-white">Bronze</a> &bullet; Next Billing on 01/23/2023</p> -->
               </div>
             </div>
@@ -112,40 +111,27 @@
 
     </section>
 
-
-     <section class="d-flex justify-content-center" data-aos="fade-down">
-        <form id="signup">
-          <div class="card shadow mb-5" style="width: 18rem;">
+      <section class="d-flex justify-content-center">
+        <form id="login">
+          <div class="card" style="width: 18rem;">
             <div class="card-body">
-              <label>Email:</label>
-              <input class="form-control" type="email" name="login" />
-              <label>Password:</label>
+              <label>Login</label>
+              <input class="form-control" type="text" name="login" />
+              <label>Password</label>
               <input class="form-control" type="password" name="password" />
-              <div class="row mt-3">
-                <div class="col d-flex justify-content-center"><button class="btn btn-primary">Register</button></div>
+              <div class="row d-flex justify-content-center">
+                <div class="col"><button class="btn btn-primary">Log in</button></div>
               </div>
+              
             </div>
           </div>
           
         </form>
       </section>
 
-      <!-- <section>
-        <form id="signup">
-          <label>Login</label>
-          <input type="text" name="login" />
-          <label>Password</label>
-          <input type="password" name="password" />
-          <button>Sign up</button>
-        </form>
-      </section> -->
-
-      <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-
       <script>
-        const firebaseConfig = {
+        window.addEventListener("DOMContentLoaded", () => {
+          const firebaseConfig = {
             apiKey: "AIzaSyCWTrPtsXpI_kJf_JFtOkwCBllZpG2ffes",
             authDomain: "appointmentapi-7f945.firebaseapp.com",
             projectId: "appointmentapi-7f945",
@@ -154,46 +140,50 @@
             appId: "1:970217794757:web:5fd4975a214ec75c4a14ac"
         };
 
-        firebase.initializeApp(firebaseConfig);
+          firebase.initializeApp(firebaseConfig);
 
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+          firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
-        document
-          .getElementById("signup")
-          .addEventListener("submit", (event) => {
-            event.preventDefault();
-            const login = event.target.login.value;
-            const password = event.target.password.value;
+          document
+            .getElementById("login")
+            .addEventListener("submit", (event) => {
+              event.preventDefault();
+              const login = event.target.login.value;
+              const password = event.target.password.value;
 
-            firebase
-              .auth()
-              .createUserWithEmailAndPassword(login, password)
-              .then(({ user }) => {
-                return user.getIdToken().then((idToken) => {
-                  return fetch("/sessionLogin", {
-                    method: "POST",
-                    headers: {
-                      Accept: "application/json",
-                      "Content-Type": "application/json",
-                      "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                    },
-                    body: JSON.stringify({ idToken }),
+              firebase
+                .auth()
+                .signInWithEmailAndPassword(login, password)
+                .then(({ user }) => {
+                  return user.getIdToken().then((idToken) => {
+                    return fetch("/sessionLogin", {
+                      method: "POST",
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                      },
+                      body: JSON.stringify({ idToken }),
+                    });
                   });
+                })
+                .then(() => {
+                  return firebase.auth().signOut();
+                })
+                .then(() => {
+                  window.location.assign("/user");
                 });
-              })
-              .then(() => {
-                return firebase.auth().signOut();
-              })
-              .then(() => {
-                window.location.assign("/user");
-              });
-            return false;
-          });
+              return false;
+            });
+        });
       </script>
     </main>
 
 
-      <!-- Vendor JS Files -->
+
+
+
+     <!-- Vendor JS Files -->
   <script src="static/vendor/jquery/jquery.min.js"></script>
   <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="static/vendor/jquery.easing/jquery.easing.min.js"></script>
