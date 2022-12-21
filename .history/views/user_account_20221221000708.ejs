@@ -139,10 +139,31 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-9"><h5 class="card-title">Current Subscription</h5></div>
-                      <div class="col text-right"><a data-toggle="modal" data-target="#plan_modal" style="cursor: pointer;">Change Plan</a></div>
+                      <div class="col text-right"><a href="#">Change Plan</a></div>
                     </div>
 
-                  
+                    <!-- modal start -->
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+                    <!-- modal end -->
                     <hr>
                     <!-- plan details -->
                     <div class="row">
@@ -201,7 +222,7 @@
                     <p>	&#10004; 300 Appoinments per month(plus 10% buffer)</p>
                     <p>	&#10004; Unlimited Integration</p>
                     <p>	&#10004; Exclusive Discounts</p> -->
-                    <a class="card-link" style="color: red;cursor: pointer;" data-toggle="modal" data-target="#cancel_plan">Cancel Subscription</a>
+                    <a href="#" class="card-link" style="color: red;">Cancel Subscription</a>
 
                   </div>
                 </div>
@@ -256,7 +277,7 @@
               <p>ID: <%= user._id %></p>
               <p><b>Subscription:</b> <a href="#">Bronze</a></p>
               <p><b>Next Billing:</b> <span id="next_bill"></span></p>
-              <p><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#user_info">Edit User Info</a></p>
+              <p><a href="#" class="btn btn-primary btn-sm">Edit User Info</a></p>
             </div>
 
             <script>
@@ -289,76 +310,6 @@
         </div>
       </div>
     </section>
-
-
-                    <!-- Change plan modal start -->
-
-                    <div class="modal fade" id="plan_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Change Plan</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            ...
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- modal end -->
-
-                    <!-- Change plan modal start -->
-
-                    <div class="modal fade" id="user_info" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit User Info</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            ...
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- modal end -->
-
-                     <!-- Change plan modal start -->
-
-                    <div class="modal fade" id="cancel_plan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Cancel Subscription</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            ...
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- modal end -->
 
     <!-- ======= CTA Section ======= -->
     <section class="section cta-section">

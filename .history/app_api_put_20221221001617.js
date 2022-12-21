@@ -46,7 +46,7 @@ router.put("/user", async function (req, res) {
   const key = req.query.apiKey;
   const data = req.body;
 
-  var output = await FirebaseData.updateUser(data.id, data, key);
+  var output = await FirebaseData.updateUser(data._id, data, key);
   res.status(201).send(output);
 });
 

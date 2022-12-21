@@ -396,7 +396,7 @@ class FirebaseData {
   }
 
   // update user
-  static async updateUser(id, data) {
+  static async updateUser(id, data, key) {
     let ref = db.collection("users");
     const snapshot = await ref.where("_id", "==", id).get();
     if (snapshot.empty) {
@@ -409,8 +409,6 @@ class FirebaseData {
     user.update({
       name: data.name,
       phone: data.phone,
-      slotSize: data.slotSize,
-      dateTimeRange: data.dateTimeRange,
     });
 
     return sendData;

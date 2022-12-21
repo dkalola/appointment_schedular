@@ -396,7 +396,7 @@ class FirebaseData {
   }
 
   // update user
-  static async updateUser(id, data) {
+  static async updateUser(id, data, key) {
     let ref = db.collection("users");
     const snapshot = await ref.where("_id", "==", id).get();
     if (snapshot.empty) {
@@ -406,14 +406,30 @@ class FirebaseData {
     let docID = snapshot.docs[0].id;
     let user = db.collection("users").doc(docID);
 
-    user.update({
-      name: data.name,
-      phone: data.phone,
-      slotSize: data.slotSize,
-      dateTimeRange: data.dateTimeRange,
-    });
+    let guest = await user.collection("guests").where("_id", "=", id).get();
 
-    return sendData;
+    if (guest.empty) {
+      user.update({
+        reqCountCurrent: FieldValue.increment(1),
+      });
+      return { status: false, message: "Guest not found!" };
+    } else {
+      const docRef = user.collection("guests").doc(guest.docs[0].id);
+
+      const res = await docRef.update({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+      });
+
+      let sendData = (await docRef.get()).data();
+
+      user.update({
+        reqCountCurrent: FieldValue.increment(1),
+      });
+
+      return sendData;
+    }
   }
 }
 
