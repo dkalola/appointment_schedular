@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Server Auth</title>
+ <script>
+        const csrfToken = getCookie('CSRF-TOKEN');
+
+        document.getElementById("csrf").value = csrfToken;
+    </script>
+
+</head>
+
+<body>
+    <main>
+        <section>
+            <form id="signup" method="post" action="/register" >
+                <input type="hidden" name="_csrf" >
+                <p><%= csrfToken %></p>
+                <label>Email</label>
+                <input type="email" name="email" />
+                <label>Password</label>
+                <input type="password" name="password" />
+                <button>Log in</button>
+            </form>
+        </section>
+    </main>
+
+   
+
+    
+    
+</body>
+
+</html>
