@@ -50,15 +50,25 @@ router.get("/guests", async function (req, res) {
   res.send(sendData);
 });
 
-// Upcoming Appointment - TESTED
-router.get("/upcoming", async function (req, res) {
+// Appointments - TESTED
+router.get("/appointments", async function (req, res) {
+  const waitTime = req.query.time;
   const key = req.query.apiKey;
-  const location = req.query.location;
+  const guestID = req.query.guestId;
+  const id = req.query.appId; 
 
-  let sendData = await FirebaseData.getUpcoming(location, key);
+  let sendData = await FirebaseData.getAppointment(id, guestID, waitTime, key);
   res.send(sendData);
 });
 
+// Guests - TESTED
+router.get("/guests", async function (req, res) {
+  const key = req.query.apiKey;
+  const id = req.query.guestId;
+  const email = req.query.email;
 
+  let sendData = await FirebaseData.getGuest(email, id, key);
+  res.send(sendData);
+});
 
 module.exports = router;

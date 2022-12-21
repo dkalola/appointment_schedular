@@ -182,18 +182,17 @@ class FirebaseData {
     let docID = snapshot.docs[0].id;
     let user = db.collection("users").doc(docID);
 
-    if (location) {
+    if (guestID) {
       // get by guest id
       const d = new Date();
-      let appointments = await user
+      let guest = await user
         .collection("appointments")
         .where("location", "=", location)
-        .where("time", ">=", d)
         .get();
 
       const docData = new Array();
 
-      appointments.forEach((doc) => {
+      guest.forEach((doc) => {
         docData.push(doc.data());
       });
       user.update({
@@ -202,7 +201,20 @@ class FirebaseData {
 
       return docData;
     } else {
-      return { status: false, message: "No location was passed!" };
+      // get by guest id
+      let guests = await user.collection("guests").get();
+
+      const docData = new Array();
+
+      guests.forEach((doc) => {
+        docData.push(doc.data());
+      });
+
+      user.update({
+        reqCountCurrent: FieldValue.increment(1),
+      });
+
+      return docData;
     }
   }
 

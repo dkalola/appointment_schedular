@@ -182,7 +182,7 @@ class FirebaseData {
     let docID = snapshot.docs[0].id;
     let user = db.collection("users").doc(docID);
 
-    if (location) {
+    if (guestID) {
       // get by guest id
       const d = new Date();
       let appointments = await user
@@ -202,7 +202,7 @@ class FirebaseData {
 
       return docData;
     } else {
-      return { status: false, message: "No location was passed!" };
+      return { status: false, message: "Error" };
     }
   }
 

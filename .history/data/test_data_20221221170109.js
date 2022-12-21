@@ -42,8 +42,7 @@ const user = [
     location: [
       {
         name: "Chicago",
-        slotSize: 15, // mins
-        subSlotSize: 5,
+        slotSize: 5,
         adress: "address1",
       },
     ],
@@ -53,6 +52,7 @@ const user = [
         startTime: "9:00 am",
         endTime: "5:00 pm",
       },
+
       {
         date: "25-01-1999",
         startTime: "9:00 am",

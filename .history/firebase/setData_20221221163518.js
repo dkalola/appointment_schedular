@@ -80,12 +80,13 @@ class FirebaseData {
 
       let appointment = await user
         .collection("appointments")
+        .where("time", ">", d)
         .where("guestID", "=", guestID)
-        .where("time", ">=", d)
         .get();
       const docData = new Array();
 
-      appointment.forEach((doc) => {
+      const ap = appointment.get();
+      ap.forEach((doc) => {
         docData.push(doc.data());
         user.update({
           reqCountCurrent: FieldValue.increment(1),
@@ -169,40 +170,6 @@ class FirebaseData {
       });
 
       return docData;
-    }
-  }
-
-  // get guest
-  static async getUpcoming(location, key) {
-    let ref = db.collection("users");
-    const snapshot = await ref.where("apiKey", "==", key).get();
-    if (snapshot.empty) {
-      return { status: false, message: "API Key not found!" };
-    }
-    let docID = snapshot.docs[0].id;
-    let user = db.collection("users").doc(docID);
-
-    if (location) {
-      // get by guest id
-      const d = new Date();
-      let appointments = await user
-        .collection("appointments")
-        .where("location", "=", location)
-        .where("time", ">=", d)
-        .get();
-
-      const docData = new Array();
-
-      appointments.forEach((doc) => {
-        docData.push(doc.data());
-      });
-      user.update({
-        reqCountCurrent: FieldValue.increment(1),
-      });
-
-      return docData;
-    } else {
-      return { status: false, message: "No location was passed!" };
     }
   }
 

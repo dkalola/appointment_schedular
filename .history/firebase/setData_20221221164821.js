@@ -202,7 +202,7 @@ class FirebaseData {
 
       return docData;
     } else {
-      return { status: false, message: "No location was passed!" };
+      return { status: false, message: "Error" };
     }
   }
 

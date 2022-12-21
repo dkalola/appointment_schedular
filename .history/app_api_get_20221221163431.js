@@ -53,9 +53,10 @@ router.get("/guests", async function (req, res) {
 // Upcoming Appointment - TESTED
 router.get("/upcoming", async function (req, res) {
   const key = req.query.apiKey;
-  const location = req.query.location;
+  const id = req.query.guestId;
+  const email = req.query.email;
 
-  let sendData = await FirebaseData.getUpcoming(location, key);
+  let sendData = await FirebaseData.getGuest(email, id, key);
   res.send(sendData);
 });
 

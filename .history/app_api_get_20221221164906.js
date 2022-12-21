@@ -55,7 +55,7 @@ router.get("/upcoming", async function (req, res) {
   const key = req.query.apiKey;
   const location = req.query.location;
 
-  let sendData = await FirebaseData.getUpcoming(location, key);
+  let sendData = await FirebaseData.getUpcoming(email, id, key);
   res.send(sendData);
 });
 
