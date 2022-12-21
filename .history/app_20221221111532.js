@@ -20,7 +20,7 @@ app.use("/static", express.static("public"));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(csrfMiddleware);
+app.use(csrfMiddleware);
 
 // ********************************* routes *********************************
 

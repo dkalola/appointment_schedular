@@ -42,6 +42,15 @@ router.put("/guest", async function (req, res) {
 });
 
 
+router.post("/userinfo", async function (req, res) {
+  const key = req.query.apiKey;
+  const data = req.body;
+
+  console.log(data);
+
+  // var output = await FirebaseData.updateUser(data.id, data, key);
+  res.status(201).send(output);
+});
 
 
 

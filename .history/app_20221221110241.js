@@ -20,19 +20,14 @@ app.use("/static", express.static("public"));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(csrfMiddleware);
+app.use(csrfMiddleware);
 
 // ********************************* routes *********************************
 
-// app.all("/login", (req, res, next) => {
-//   res.cookie("XSRF-TOKEN", req.csrfToken());
-//   next();
-// });
-
-// app.all("/signup", (req, res, next) => {
-//   res.cookie("XSRF-TOKEN", req.csrfToken());
-//   next();
-// });
+app.all("*", (req, res, next) => {
+  res.cookie("XSRF-TOKEN", req.csrfToken());
+  next();
+});
 
 // ********************************* sessions *********************************
 
@@ -154,7 +149,7 @@ app.get("/user", function (req, res) {
           );
         } else {
           const user = snapshot.docs[0].data();
-          // console.log(user);
+          console.log(user);
           res.render("user_account", { user: user });
         }
       } catch (e) {

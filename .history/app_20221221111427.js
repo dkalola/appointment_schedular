@@ -20,19 +20,19 @@ app.use("/static", express.static("public"));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(csrfMiddleware);
+app.use(csrfMiddleware);
 
 // ********************************* routes *********************************
 
-// app.all("/login", (req, res, next) => {
-//   res.cookie("XSRF-TOKEN", req.csrfToken());
-//   next();
-// });
+app.all("/login", (req, res, next) => {
+  res.cookie("XSRF-TOKEN", req.csrfToken());
+  next();
+});
 
-// app.all("/signup", (req, res, next) => {
-//   res.cookie("XSRF-TOKEN", req.csrfToken());
-//   next();
-// });
+app.all("/login", (req, res, next) => {
+  res.cookie("XSRF-TOKEN", req.csrfToken());
+  next();
+});
 
 // ********************************* sessions *********************************
 

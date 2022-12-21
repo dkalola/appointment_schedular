@@ -275,7 +275,7 @@
               <p>ID: <%= user._id %></p>
               <p><b>Subscription:</b> <a href="#">Bronze</a></p>
               <p><b>Next Billing:</b> <span id="next_bill"></span></p>
-              <button type="submit" class="btn btn-primary"  data-toggle="modal" data-target="#user_info">Edit User Info</button>
+              <p><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#user_info">Edit User Info</a></p>
             </div>
 
             <script>
@@ -287,7 +287,11 @@
               }
              
             </script>
-
+<!-- 
+            <div class="sidebar-box">
+              <h3>Paragraph</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+            </div> -->
             <div class="sidebar-box">
               <div class="categories">
                 <h3>Links</h3>
@@ -296,6 +300,7 @@
                 <li><a href="#">My Application</a></li>
                 <li><a href="#">API Keys </a></li>
                 <li><a href="#">Payments</a></li>
+                
               </div>
             </div>
           
@@ -354,84 +359,22 @@
                                     <small class="form-text text-muted">Format: 123-45-678</small>
                                   </div>
 
-                                  <hr>
-                                  <h5>Set your working hours and appointment slot size.</h5>
-                                    <div class="form-group">
+                                   <div class="form-group">
                                     <label>Slot Size:</label>
                                     <input type="number" class="form-control" name="slotSize" placeholder="<%= user.slotSize %>" min="0">
                                     <small class="form-text text-muted">Enter the approximate length of 1 appoinment in minutes.</small>
                                   </div>
-
-                                  <div class="row">
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Monday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Tuesday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                     <div class="col">
-                                      <div class="form-group">
-                                        <label>Wednesday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Thursday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Friday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row justify-content-center">
-                                    <div class="col-3">
-                                      <div class="form-group">
-                                        <label>Saturday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col-2">
-                                      <div class="form-group">
-                                        <label>Sunday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  
-                                  <hr>
-                                  <div class="row justify-content-end">
-                                    <div class="col-4">
-                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                  </div>
-                                  
+                               
+                                  <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                               </div>
 
                             </div>
                           </div>
-                        
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                          </div>
                         </div>
                       </div>
                     </div>

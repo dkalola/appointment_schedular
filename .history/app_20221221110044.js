@@ -20,19 +20,14 @@ app.use("/static", express.static("public"));
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(csrfMiddleware);
+app.use(csrfMiddleware);
 
 // ********************************* routes *********************************
 
-// app.all("/login", (req, res, next) => {
-//   res.cookie("XSRF-TOKEN", req.csrfToken());
-//   next();
-// });
-
-// app.all("/signup", (req, res, next) => {
-//   res.cookie("XSRF-TOKEN", req.csrfToken());
-//   next();
-// });
+app.all("*", (req, res, next) => {
+  res.cookie("XSRF-TOKEN", req.csrfToken());
+  next();
+});
 
 // ********************************* sessions *********************************
 
@@ -118,7 +113,7 @@ app.get("/user", function (req, res) {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(async (userData) => {
-      // console.log("Logged in:", userData);
+      console.log("Logged in:", userData);
 
       try {
         let ref = db.collection("users");
@@ -142,7 +137,6 @@ app.get("/user", function (req, res) {
             "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
           ).then(
             function (value) {
-              console.log(req.session.csrf);
               res.render("user_account", {
                 user: user,
                 csrf: req.session.csrf,
@@ -154,7 +148,7 @@ app.get("/user", function (req, res) {
           );
         } else {
           const user = snapshot.docs[0].data();
-          // console.log(user);
+          console.log(user);
           res.render("user_account", { user: user });
         }
       } catch (e) {

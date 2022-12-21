@@ -118,8 +118,8 @@ router.post("/userinfo", async function (req, res) {
 
   console.log(data);
 
-  var output = await FirebaseData.updateUser(data.id, data, key);
-  res.status(201).redirect("/user");
+  // var output = await FirebaseData.updateUser(data.id, data, key);
+  res.status(201).send({ Hello: "world" });
 });
 
 

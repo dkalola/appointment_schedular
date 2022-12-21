@@ -26,25 +26,6 @@
   <!-- Template Main CSS File -->
   <link href="static/css/style.css" rel="stylesheet">
 
-  <script>
-    function getCookie(cname) {
-      let name = cname + "=";
-      let decodedCookie = decodeURIComponent(document.cookie);
-      let ca = decodedCookie.split(';');
-      for(let i = 0; i <ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-          c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-          return c.substring(name.length, c.length);
-        }
-      }
-      return "";
-    }
-
-  </script>
-
   <!-- =======================================================
   * Template Name: SoftLand - v2.1.0
   * Template URL: https://bootstrapmade.com/softland-bootstrap-app-landing-page-template/
@@ -275,7 +256,7 @@
               <p>ID: <%= user._id %></p>
               <p><b>Subscription:</b> <a href="#">Bronze</a></p>
               <p><b>Next Billing:</b> <span id="next_bill"></span></p>
-              <button type="submit" class="btn btn-primary"  data-toggle="modal" data-target="#user_info">Edit User Info</button>
+              <p><a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#user_info">Edit User Info</a></p>
             </div>
 
             <script>
@@ -287,7 +268,11 @@
               }
              
             </script>
-
+<!-- 
+            <div class="sidebar-box">
+              <h3>Paragraph</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+            </div> -->
             <div class="sidebar-box">
               <div class="categories">
                 <h3>Links</h3>
@@ -296,6 +281,7 @@
                 <li><a href="#">My Application</a></li>
                 <li><a href="#">API Keys </a></li>
                 <li><a href="#">Payments</a></li>
+                
               </div>
             </div>
           
@@ -342,103 +328,35 @@
                           <div class="modal-body">
                             <div class="row">
                               <div class="col">
-                                <form method="post" action="/api/userinfo">
-                                  <input type="hidden" name="id" value="<%= user._id %>">
+                                <form method="post" action="/userinfo">
                                   <div class="form-group">
                                     <label>Name:</label>
-                                    <input type="text" class="form-control" name="text" placeholder="<%= user.name %>">
+                                    <input type="text" class="form-control" name="text" placeholder="Name">
                                   </div>
                                   <div class="form-group">
                                     <label>Phone:</label>
-                                    <input type="tel" class="form-control" name="phone" placeholder="<%= user.phone %>">
-                                    <small class="form-text text-muted">Format: 123-45-678</small>
+                                    <input type="tel" class="form-control" name="phone" placeholder="123-45-678">
+                                    <small id="emailHelp" class="form-text text-muted">Format: 123-45-678</small>
                                   </div>
-
-                                  <hr>
-                                  <h5>Set your working hours and appointment slot size.</h5>
-                                    <div class="form-group">
-                                    <label>Slot Size:</label>
-                                    <input type="number" class="form-control" name="slotSize" placeholder="<%= user.slotSize %>" min="0">
-                                    <small class="form-text text-muted">Enter the approximate length of 1 appoinment in minutes.</small>
-                                  </div>
-
-                                  <div class="row">
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Monday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Tuesday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                     <div class="col">
-                                      <div class="form-group">
-                                        <label>Wednesday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Thursday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col">
-                                      <div class="form-group">
-                                        <label>Friday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  <div class="row justify-content-center">
-                                    <div class="col-3">
-                                      <div class="form-group">
-                                        <label>Saturday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                    <div class="col-2">
-                                      <div class="form-group">
-                                        <label>Sunday:</label>
-                                        <br>
-                                        <input type="time" id="meeting-time" name="meeting-time">
-                                      </div>
-                                    </div>
-                                  </div>
-
-                                  
-                                  <hr>
-                                  <div class="row justify-content-end">
-                                    <div class="col-4">
-                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                      <button type="submit" class="btn btn-primary">Submit</button>
-                                    </div>
-                                  </div>
-                                  
+                               
+                                  <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
                               </div>
 
                             </div>
                           </div>
-                        
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                          </div>
                         </div>
                       </div>
                     </div>
                     <!-- modal end -->
 
                     <script>
-                      document.getElementById("csrf").value = getCookie("XSRF-TOKEN");
+                      // var csrf = document.querySelector('meta[name="XSRF-TOKEN"]').content;
+                      console.log('csrf');
                     </script>
 
                      <!-- cancel plan modal start -->
