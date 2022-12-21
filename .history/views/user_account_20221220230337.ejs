@@ -147,7 +147,7 @@
                     <div class="row">
                       <div class="col-2">
                         <h4>Plan</h4>
-                        <p id="plan"></p>
+                        <p id="plan">Bronze</p>
                       </div>
                       <div class="col-4">
                         <h4>Monthly Limit</h4>
@@ -163,19 +163,8 @@
                       if("<%= user.statusCode%>" != "-1"){
                         var date = new Date(parseInt("<%= user.subEndDate._seconds * 1000 %>"));
                       document.getElementById("renew_date").innerText = date.toDateString();
-                      if("<%= user.statusCode%>" != "0"){
-                        document.getElementById("plan").innerText = "Halted";
-                      }else if("<%= user.statusCode%>" != "1"){
-                        document.getElementById("plan").innerText = "Bronze";
-                      }else if("<%= user.statusCode%>" != "2"){
-                        document.getElementById("plan").innerText = "Silver";
-                      }else if("<%= user.statusCode%>" != "3"){
-                        document.getElementById("plan").innerText = "Platinum";
-                      }
-                      
                       }else{
                         document.getElementById("renew_date").innerText = "N/A";
-                        document.getElementById("plan").innerText = "N/A";
                       }
                     
                     </script>

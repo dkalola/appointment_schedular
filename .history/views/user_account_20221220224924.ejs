@@ -147,7 +147,7 @@
                     <div class="row">
                       <div class="col-2">
                         <h4>Plan</h4>
-                        <p id="plan"></p>
+                        <p>Bronze</p>
                       </div>
                       <div class="col-4">
                         <h4>Monthly Limit</h4>
@@ -158,27 +158,6 @@
                         <h4>Renewal Date</h4>
                         <p id="renew_date">Dec 1, 2022</p>
                       </div>
-
-                      <script>
-                      if("<%= user.statusCode%>" != "-1"){
-                        var date = new Date(parseInt("<%= user.subEndDate._seconds * 1000 %>"));
-                      document.getElementById("renew_date").innerText = date.toDateString();
-                      if("<%= user.statusCode%>" != "0"){
-                        document.getElementById("plan").innerText = "Halted";
-                      }else if("<%= user.statusCode%>" != "1"){
-                        document.getElementById("plan").innerText = "Bronze";
-                      }else if("<%= user.statusCode%>" != "2"){
-                        document.getElementById("plan").innerText = "Silver";
-                      }else if("<%= user.statusCode%>" != "3"){
-                        document.getElementById("plan").innerText = "Platinum";
-                      }
-                      
-                      }else{
-                        document.getElementById("renew_date").innerText = "N/A";
-                        document.getElementById("plan").innerText = "N/A";
-                      }
-                    
-                    </script>
                     </div>
                     <!-- plan usage  -->
                     <div class="row border mx-3 my-3">
@@ -191,7 +170,7 @@
                         </div>
                         
                        <div class="progress">
-                          <div class="progress-bar bg-info" role="progressbar" style="width: <%= ((user.reqCountMax - user.reqCountCurrent)*100)/user.reqCountMax %>%"></div>
+                          <div class="progress-bar bg-info" role="progressbar" style="width: <%= (user.reqCountCurrent*100)/user.reqCountMax %>%"></div>
                         </div>
                       </div>
                     </div>
@@ -260,13 +239,8 @@
             </div>
 
             <script>
-              if("<%= user.statusCode%>" != "-1"){
-                 var date = new Date(parseInt("<%= user.subEndDate._seconds * 1000 %>"));
-              document.getElementById("next_bill").innerText = date.toDateString();
-              }else{
-                document.getElementById("next_bill").innerText = "N/A";
-              }
-             
+              var date = new Date(parseInt("<%= user.date._seconds * 1000 %>"));
+                        document.getElementById("api_key_date").innerText = date.toDateString();
             </script>
 <!-- 
             <div class="sidebar-box">

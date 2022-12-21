@@ -147,7 +147,7 @@
                     <div class="row">
                       <div class="col-2">
                         <h4>Plan</h4>
-                        <p id="plan"></p>
+                        <p>Bronze</p>
                       </div>
                       <div class="col-4">
                         <h4>Monthly Limit</h4>
@@ -158,27 +158,6 @@
                         <h4>Renewal Date</h4>
                         <p id="renew_date">Dec 1, 2022</p>
                       </div>
-
-                      <script>
-                      if("<%= user.statusCode%>" != "-1"){
-                        var date = new Date(parseInt("<%= user.subEndDate._seconds * 1000 %>"));
-                      document.getElementById("renew_date").innerText = date.toDateString();
-                      if("<%= user.statusCode%>" != "0"){
-                        document.getElementById("plan").innerText = "Halted";
-                      }else if("<%= user.statusCode%>" != "1"){
-                        document.getElementById("plan").innerText = "Bronze";
-                      }else if("<%= user.statusCode%>" != "2"){
-                        document.getElementById("plan").innerText = "Silver";
-                      }else if("<%= user.statusCode%>" != "3"){
-                        document.getElementById("plan").innerText = "Platinum";
-                      }
-                      
-                      }else{
-                        document.getElementById("renew_date").innerText = "N/A";
-                        document.getElementById("plan").innerText = "N/A";
-                      }
-                    
-                    </script>
                     </div>
                     <!-- plan usage  -->
                     <div class="row border mx-3 my-3">
@@ -191,7 +170,7 @@
                         </div>
                         
                        <div class="progress">
-                          <div class="progress-bar bg-info" role="progressbar" style="width: <%= ((user.reqCountMax - user.reqCountCurrent)*100)/user.reqCountMax %>%"></div>
+                          <div class="progress-bar bg-info" role="progressbar" style="width: <%= (user.reqCountCurrent*100)/user.reqCountMax %>%"></div>
                         </div>
                       </div>
                     </div>
@@ -213,23 +192,24 @@
                   <div class="card-body">
                     <div class="row">
                       <div class="col-9"><h5 class="card-title">API Keys</h5></div>
+                      <div class="col text-right"><a href="#">Generate New Key</a></div>
                     </div>
                     
                     <hr>
 
-                    <div class="row mx-3 my-2">
+                    <div class="row mx-3 my-2 border">
                       <div class="col">
                           <div class="row">
-                            <div class="col-2 mt-2">API KEY:</div>
-                            <div class="col mt-2 text-left"> <p><%= user.apiKey %> </p></div>
+                            <div class="col mt-2">API KEY:</div>
+                            <div class="col mt-2"><p>Created on: <span id="api_key_date"></span></p></div>
+                            <div class="col mt-2 text-right"> <p>Key: abc123 </p></div>
                           </div>
-                          <small>Created on: <span id="api_key_date"></span></small>
 
                       </div>
 
                       <script>
                         var date = new Date(parseInt("<%= user.date._seconds * 1000 %>"));
-                        document.getElementById("api_key_date").innerText = date.toDateString();
+                        document.getElementById("api_key_date").innerText = date;
 
                       </script>
                     </div>
@@ -253,21 +233,11 @@
           <div class="col-md-4 sidebar">
             <div class="sidebar-box">
               <img src="static/img/default.png" alt="Image placeholder" class="img-fluid mb-4">
-              <p>ID: <%= user._id %></p>
+              <h3>User ID: 1234567890</h3>
               <p><b>Subscription:</b> <a href="#">Bronze</a></p>
-              <p><b>Next Billing:</b> <span id="next_bill"></span></p>
+              <p><b>Next Billing:</b> 01/23/2023</p>
               <p><a href="#" class="btn btn-primary btn-sm">Edit User Info</a></p>
             </div>
-
-            <script>
-              if("<%= user.statusCode%>" != "-1"){
-                 var date = new Date(parseInt("<%= user.subEndDate._seconds * 1000 %>"));
-              document.getElementById("next_bill").innerText = date.toDateString();
-              }else{
-                document.getElementById("next_bill").innerText = "N/A";
-              }
-             
-            </script>
 <!-- 
             <div class="sidebar-box">
               <h3>Paragraph</h3>

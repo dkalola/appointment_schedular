@@ -22,9 +22,6 @@ class FirebaseData {
         _id: data._id,
         date: data.date,
         subStartDate: data.subStartDate,
-        subEndDate: data.subEndDate,
-        dateTimeRange: data.dateTimeRange,
-        slotSize: data.slotSize,
       });
     } else {
       throw new Error("API Key does not match our records!");

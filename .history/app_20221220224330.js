@@ -162,6 +162,19 @@ app.get("/signup", (req, res) => {
   res.render("signup");
 });
 
+// app.post("/register", async (req, res) => {
+//   try {
+//     const { email, password } = req.body;
+//     const user = await admin.auth().createUser({
+//       email,
+//       password,
+//     });
+//     res.send(user);
+//   } catch (e) {
+//     res.send(e);
+//   }
+// });
+
 app.get("/login", (req, res) => {
   res.render("login");
 });

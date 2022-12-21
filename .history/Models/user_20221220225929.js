@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
   },
   reqCountCurrent: { type: Number, required: true, default: 0 },
   reqCountMax: { type: Number, required: true, default: 0 },
-  statusCode: { type: Number, required: true, default: -1 }, // 0 = Haulted, -1 = Unsubscribed, 1 = Bronze, 2 = Silver, 3 = Platinum
+  statusCode: { type: Number, required: true, default: -1 }, // 0, Haulted, -1 = Unsubscribed, 1 = Bronze, 2 = Silver, 3 = Platinum
   subStartDate: {
     type: Date,
     default: Date.now,
@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema({
   },
   subEndDate: {
     type: Date,
-    default: Date.now,
+    default: "0/0/0",
     required: true,
   },
   slotSize: { type: Number, default: 0, required: true },

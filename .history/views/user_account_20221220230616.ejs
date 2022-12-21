@@ -167,10 +167,8 @@
                         document.getElementById("plan").innerText = "Halted";
                       }else if("<%= user.statusCode%>" != "1"){
                         document.getElementById("plan").innerText = "Bronze";
-                      }else if("<%= user.statusCode%>" != "2"){
-                        document.getElementById("plan").innerText = "Silver";
-                      }else if("<%= user.statusCode%>" != "3"){
-                        document.getElementById("plan").innerText = "Platinum";
+                      }else if("<%= user.statusCode%>" != "1"){
+
                       }
                       
                       }else{
