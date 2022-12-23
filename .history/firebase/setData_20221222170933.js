@@ -185,11 +185,13 @@ class FirebaseData {
     if (location) {
       // get by guest id
       let d = new Date();
-
+      if (time) {
+        d.setDate(time);
+      }
       let appointments = await user
         .collection("appointments")
         .where("location", "=", location)
-        .where("time", time ? "=" : ">=", time ? time : d)
+        .where("time", ">=", time)
         .get();
 
       if (!appointments.empty) {

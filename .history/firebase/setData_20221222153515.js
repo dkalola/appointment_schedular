@@ -185,29 +185,25 @@ class FirebaseData {
     if (location) {
       // get by guest id
       let d = new Date();
-
+      if (time) {
+        d.setDate(time);
+      }
       let appointments = await user
         .collection("appointments")
         .where("location", "=", location)
-        .where("time", time ? "=" : ">=", time ? time : d)
+        .where("time", "=", d)
         .get();
 
-      if (!appointments.empty) {
-        const docData = new Array();
+      const docData = new Array();
 
-        appointments.forEach((doc) => {
-          docData.push(doc.data());
-        });
-        user.update({
-          reqCountCurrent: FieldValue.increment(1),
-        });
+      appointments.forEach((doc) => {
+        docData.push(doc.data());
+      });
+      user.update({
+        reqCountCurrent: FieldValue.increment(1),
+      });
 
-        console.log(appointments.empty);
-
-        return docData;
-      } else {
-        return { status: true, message: "No match found!" };
-      }
+      return docData;
     } else {
       return { status: false, message: "No location was passed!" };
     }

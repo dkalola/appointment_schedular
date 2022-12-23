@@ -65,8 +65,6 @@ router.get("/timeslote", async function (req, res) {
   const location = req.query.location;
   const time = new Date(toDateTime(parseInt(req.query.time)));
 
-  console.log(time);
-
   let sendData = await FirebaseData.getUpcoming(location, time, key);
   res.send(sendData);
 });

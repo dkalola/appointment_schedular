@@ -185,11 +185,13 @@ class FirebaseData {
     if (location) {
       // get by guest id
       let d = new Date();
-
+      if (time) {
+        d.setDate(time);
+      }
       let appointments = await user
         .collection("appointments")
         .where("location", "=", location)
-        .where("time", time ? "=" : ">=", time ? time : d)
+        .where("time", ">=", d)
         .get();
 
       if (!appointments.empty) {
@@ -205,8 +207,6 @@ class FirebaseData {
         console.log(appointments.empty);
 
         return docData;
-      } else {
-        return { status: true, message: "No match found!" };
       }
     } else {
       return { status: false, message: "No location was passed!" };

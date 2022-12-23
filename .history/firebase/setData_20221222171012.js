@@ -189,7 +189,7 @@ class FirebaseData {
       let appointments = await user
         .collection("appointments")
         .where("location", "=", location)
-        .where("time", time ? "=" : ">=", time ? time : d)
+        .where("time", ">=", time ? time : d)
         .get();
 
       if (!appointments.empty) {

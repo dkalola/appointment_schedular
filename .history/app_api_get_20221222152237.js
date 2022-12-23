@@ -54,28 +54,18 @@ router.get("/guests", async function (req, res) {
 router.get("/upcoming", async function (req, res) {
   const key = req.query.apiKey;
   const location = req.query.location;
-  const time = false;
 
-  let sendData = await FirebaseData.getUpcoming(location, time, key);
+  let sendData = await FirebaseData.getUpcoming(location, key);
   res.send(sendData);
 });
 
-router.get("/timeslote", async function (req, res) {
+router.get("/upcoming", async function (req, res) {
   const key = req.query.apiKey;
   const location = req.query.location;
-  const time = new Date(toDateTime(parseInt(req.query.time)));
 
-  console.log(time);
-
-  let sendData = await FirebaseData.getUpcoming(location, time, key);
+  let sendData = await FirebaseData.getUpcoming(location, key);
   res.send(sendData);
 });
-
-function toDateTime(secs) {
-  var t = new Date(1970, 0, 1); // Epoch
-  t.setSeconds(secs);
-  return t;
-}
 
 
 

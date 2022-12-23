@@ -173,7 +173,7 @@ class FirebaseData {
   }
 
   // get guest
-  static async getUpcoming(location, time, key) {
+  static async getUpcoming(location, key) {
     let ref = db.collection("users");
     const snapshot = await ref.where("apiKey", "==", key).get();
     if (snapshot.empty) {
@@ -184,30 +184,56 @@ class FirebaseData {
 
     if (location) {
       // get by guest id
-      let d = new Date();
-
+      const d = new Date();
       let appointments = await user
         .collection("appointments")
         .where("location", "=", location)
-        .where("time", time ? "=" : ">=", time ? time : d)
+        .where("time", "=", d)
         .get();
 
-      if (!appointments.empty) {
-        const docData = new Array();
+      const docData = new Array();
 
-        appointments.forEach((doc) => {
-          docData.push(doc.data());
-        });
-        user.update({
-          reqCountCurrent: FieldValue.increment(1),
-        });
+      appointments.forEach((doc) => {
+        docData.push(doc.data());
+      });
+      user.update({
+        reqCountCurrent: FieldValue.increment(1),
+      });
 
-        console.log(appointments.empty);
+      return docData;
+    } else {
+      return { status: false, message: "No location was passed!" };
+    }
+  }
 
-        return docData;
-      } else {
-        return { status: true, message: "No match found!" };
-      }
+  static async getUpcoming(location, key) {
+    let ref = db.collection("users");
+    const snapshot = await ref.where("apiKey", "==", key).get();
+    if (snapshot.empty) {
+      return { status: false, message: "API Key not found!" };
+    }
+    let docID = snapshot.docs[0].id;
+    let user = db.collection("users").doc(docID);
+
+    if (location) {
+      // get by guest id
+      const d = new Date();
+      let appointments = await user
+        .collection("appointments")
+        .where("location", "=", location)
+        .where("time", "=", d)
+        .get();
+
+      const docData = new Array();
+
+      appointments.forEach((doc) => {
+        docData.push(doc.data());
+      });
+      user.update({
+        reqCountCurrent: FieldValue.increment(1),
+      });
+
+      return docData;
     } else {
       return { status: false, message: "No location was passed!" };
     }
