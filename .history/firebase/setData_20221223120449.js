@@ -193,8 +193,10 @@ class FirebaseData {
       if (time) {
         let appointments = await user
           .collection("appointments")
-          .where("location", "==", location)
-          .where("time", "==", admin.firestore.Timestamp.fromDate(d))
+          // .where("location", "==", location)
+
+          // .where("time", "<=", admin.firestore.Timestamp.fromDate(d1))
+          // .where("time", ">=", admin.firestore.Timestamp.fromDate(d))
           .get();
 
         if (!appointments.empty) {

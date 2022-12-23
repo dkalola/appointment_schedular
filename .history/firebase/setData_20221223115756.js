@@ -188,13 +188,13 @@ class FirebaseData {
 
       let d1 = new Date(1970, 0, 0);
       d1.setSeconds(parseInt(time) + 1800);
-      console.log(admin.firestore.Timestamp.fromDate(d));
       console.log(admin.firestore.Timestamp.fromDate(d1));
       if (time) {
         let appointments = await user
           .collection("appointments")
           .where("location", "==", location)
-          .where("time", "==", admin.firestore.Timestamp.fromDate(d))
+          .where("time", ">=", admin.firestore.Timestamp.fromDate(d))
+          .where("time", "<=", admin.firestore.Timestamp.fromDate(d1))
           .get();
 
         if (!appointments.empty) {

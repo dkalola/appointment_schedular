@@ -184,17 +184,17 @@ class FirebaseData {
     if (location) {
       // get by guest id
       let d = new Date(1970, 0, 0);
-      d.setSeconds(time);
+      d.setSeconds(time + 1800);
 
-      let d1 = new Date(1970, 0, 0);
-      d1.setSeconds(parseInt(time) + 1800);
+      let d = new Date(1970, 0, 0);
+      d.setSeconds(time + 1800);
       console.log(admin.firestore.Timestamp.fromDate(d));
-      console.log(admin.firestore.Timestamp.fromDate(d1));
       if (time) {
         let appointments = await user
           .collection("appointments")
           .where("location", "==", location)
-          .where("time", "==", admin.firestore.Timestamp.fromDate(d))
+          .where("time", ">=", admin.firestore.Timestamp.fromDate(d))
+          .where("time", ">=", admin.firestore.Timestamp.fromDate(d))
           .get();
 
         if (!appointments.empty) {
