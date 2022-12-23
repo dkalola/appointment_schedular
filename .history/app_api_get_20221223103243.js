@@ -63,10 +63,19 @@ router.get("/upcoming", async function (req, res) {
 router.get("/timeslote", async function (req, res) {
   const key = req.query.apiKey;
   const location = req.query.location;
-  let sendData = await FirebaseData.getUpcoming(location, req.query.time, key);
+  const time = new Date(toDateTime(parseInt(req.query.time)));
+
+  // console.log(time);
+
+  let sendData = await FirebaseData.getUpcoming(location, time, key);
   res.send(sendData);
 });
 
+function toDateTime(secs) {
+  var t = new Date(1970, 0, 1); // Epoch
+  t.setSeconds(secs);
+  return t;
+}
 
 
 

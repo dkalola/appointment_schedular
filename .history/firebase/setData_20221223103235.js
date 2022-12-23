@@ -1,7 +1,8 @@
 const db = require("./firebase.js");
 var cookieSession = require("cookie-session");
 const { FieldValue } = require("firebase-admin/firestore");
-var admin = require("firebase-admin");
+
+
 
 class FirebaseData {
   static setData(collection, data, key) {
@@ -183,51 +184,31 @@ class FirebaseData {
 
     if (location) {
       // get by guest id
-      let d = new Date(1970, 0, 0);
-      d.setSeconds(time);
-      console.log(admin.firestore.Timestamp.fromDate(d));
-      if (time) {
-        let appointments = await user
-          .collection("appointments")
-          .where("location", "=", location)
-          .where("time", ">", admin.firestore.Timestamp.fromDate(d))
-          .get();
+      let d = new Date();
 
-        if (!appointments.empty) {
-          const docData = new Array();
+      console.log(d);
 
-          appointments.forEach((doc) => {
-            docData.push(doc.data());
-          });
-          user.update({
-            reqCountCurrent: FieldValue.increment(1),
-          });
+      let appointments = await user
+        .collection("appointments")
+        .where("location", "=", location)
+        .where("time", time ? "=" : ">=", time ? time : d)
+        .get();
 
-          return docData;
-        } else {
-          return { status: true, message: "No match found!" };
-        }
+      if (!appointments.empty) {
+        const docData = new Array();
+
+        appointments.forEach((doc) => {
+          docData.push(doc.data());
+        });
+        user.update({
+          reqCountCurrent: FieldValue.increment(1),
+        });
+
+        console.log(appointments.empty);
+
+        return docData;
       } else {
-        let appointments = await user
-          .collection("appointments")
-          .where("location", "=", location)
-          .where("time", ">=", d)
-          .get();
-
-        if (!appointments.empty) {
-          const docData = new Array();
-
-          appointments.forEach((doc) => {
-            docData.push(doc.data());
-          });
-          user.update({
-            reqCountCurrent: FieldValue.increment(1),
-          });
-
-          return docData;
-        } else {
-          return { status: true, message: "No match found!" };
-        }
+        return { status: true, message: "No match found!" };
       }
     } else {
       return { status: false, message: "No location was passed!" };

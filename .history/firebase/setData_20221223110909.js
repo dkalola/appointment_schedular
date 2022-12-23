@@ -185,12 +185,12 @@ class FirebaseData {
       // get by guest id
       let d = new Date(1970, 0, 0);
       d.setSeconds(time);
-      console.log(admin.firestore.Timestamp.fromDate(d));
+      console.log(admin.);
       if (time) {
         let appointments = await user
           .collection("appointments")
           .where("location", "=", location)
-          .where("time", ">", admin.firestore.Timestamp.fromDate(d))
+          .where("time", ">", d.toUTCString())
           .get();
 
         if (!appointments.empty) {

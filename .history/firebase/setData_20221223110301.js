@@ -1,7 +1,8 @@
 const db = require("./firebase.js");
 var cookieSession = require("cookie-session");
 const { FieldValue } = require("firebase-admin/firestore");
-var admin = require("firebase-admin");
+
+
 
 class FirebaseData {
   static setData(collection, data, key) {
@@ -185,12 +186,12 @@ class FirebaseData {
       // get by guest id
       let d = new Date(1970, 0, 0);
       d.setSeconds(time);
-      console.log(admin.firestore.Timestamp.fromDate(d));
+
       if (time) {
         let appointments = await user
           .collection("appointments")
           .where("location", "=", location)
-          .where("time", ">", admin.firestore.Timestamp.fromDate(d))
+          .where("time", "=", d)
           .get();
 
         if (!appointments.empty) {

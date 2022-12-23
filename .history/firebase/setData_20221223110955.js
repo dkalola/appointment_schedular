@@ -185,7 +185,6 @@ class FirebaseData {
       // get by guest id
       let d = new Date(1970, 0, 0);
       d.setSeconds(time);
-      console.log(admin.firestore.Timestamp.fromDate(d));
       if (time) {
         let appointments = await user
           .collection("appointments")

@@ -190,7 +190,7 @@ class FirebaseData {
         let appointments = await user
           .collection("appointments")
           .where("location", "=", location)
-          .where("time", ">", admin.firestore.Timestamp.fromDate(d))
+          .where("time", ">", d.toUTCString())
           .get();
 
         if (!appointments.empty) {

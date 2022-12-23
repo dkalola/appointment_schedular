@@ -183,7 +183,7 @@ class FirebaseData {
 
     if (location) {
       // get by guest id
-      let d = new Date(1970, 0, 0);
+      let d = new Date(1970, 0, 1);
       d.setSeconds(time);
       console.log(admin.firestore.Timestamp.fromDate(d));
       if (time) {

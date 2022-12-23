@@ -1,7 +1,8 @@
 const db = require("./firebase.js");
 var cookieSession = require("cookie-session");
 const { FieldValue } = require("firebase-admin/firestore");
-var admin = require("firebase-admin");
+
+
 
 class FirebaseData {
   static setData(collection, data, key) {
@@ -185,12 +186,12 @@ class FirebaseData {
       // get by guest id
       let d = new Date(1970, 0, 0);
       d.setSeconds(time);
-      console.log(admin.firestore.Timestamp.fromDate(d));
+      console.log(d);
       if (time) {
         let appointments = await user
           .collection("appointments")
           .where("location", "=", location)
-          .where("time", ">", admin.firestore.Timestamp.fromDate(d))
+          .where("time", "=", time)
           .get();
 
         if (!appointments.empty) {
@@ -202,6 +203,8 @@ class FirebaseData {
           user.update({
             reqCountCurrent: FieldValue.increment(1),
           });
+
+          console.log(appointments.empty);
 
           return docData;
         } else {
@@ -223,6 +226,8 @@ class FirebaseData {
           user.update({
             reqCountCurrent: FieldValue.increment(1),
           });
+
+          console.log(appointments.empty);
 
           return docData;
         } else {
