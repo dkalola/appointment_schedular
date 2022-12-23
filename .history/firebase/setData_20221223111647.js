@@ -189,8 +189,8 @@ class FirebaseData {
       if (time) {
         let appointments = await user
           .collection("appointments")
-          .where("location", "==", location)
-          .where("time", "==", admin.firestore.Timestamp.fromDate(d))
+          .where("location", "=", location)
+          .where("time", ">=", admin.firestore.Timestamp.fromDate(d))
           .get();
 
         if (!appointments.empty) {
@@ -210,7 +210,7 @@ class FirebaseData {
       } else {
         let appointments = await user
           .collection("appointments")
-          .where("location", "==", location)
+          .where("location", "=", location)
           .where("time", ">=", d)
           .get();
 

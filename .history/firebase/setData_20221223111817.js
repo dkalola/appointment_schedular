@@ -210,7 +210,7 @@ class FirebaseData {
       } else {
         let appointments = await user
           .collection("appointments")
-          .where("location", "==", location)
+          .where("location", "=", location)
           .where("time", ">=", d)
           .get();
 
