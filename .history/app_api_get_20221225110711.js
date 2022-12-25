@@ -37,13 +37,7 @@ router.get("/appointments", async function (req, res) {
   const id = req.query.appId; 
   const date = req.query.date;
 
-  let sendData = await FirebaseData.getAppointment(
-    id,
-    guestID,
-    waitTime,
-    date,
-    key
-  );
+  let sendData = await FirebaseData.getAppointment(id, guestID, waitTime, key);
   res.send(sendData);
 });
 

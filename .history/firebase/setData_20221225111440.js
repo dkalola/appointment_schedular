@@ -66,21 +66,8 @@ class FirebaseData {
 
         let appointment = await user
           .collection("appointments")
-          .where("guestID", "=", guestID)
-          .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
-          .where("time", "<=", admin.firestore.Timestamp.fromDate(end))
+          .where("time", ">=", admin.firestore.Timestamp.fromDate(start));
           .get();
-
-        const docData = new Array();
-
-        appointment.forEach((doc) => {
-          docData.push(doc.data());
-          user.update({
-            reqCountCurrent: FieldValue.increment(1),
-          });
-        });
-
-        return docData;
       } else {
         // get by guest id
         let appointment = await user
@@ -210,17 +197,19 @@ class FirebaseData {
     let user = db.collection("users").doc(docID);
 
     if (location) {
-      let start = new Date(date);
-      start.setUTCHours(0, 0, 0, 0);
+      // get by guest id
+      let d = new Date(1970, 0, 0);
+      d.setSeconds(time);
 
-      let end = new Date(date);
-      end.setUTCHours(23, 59, 59, 999);
+      let d1 = new Date(1970, 0, 0);
+      d1.setSeconds(parseInt(time) + 1800);
+      console.log(admin.firestore.Timestamp.fromDate(d));
+      console.log(admin.firestore.Timestamp.fromDate(d1));
       if (time) {
         let appointments = await user
           .collection("appointments")
           .where("location", "==", location)
-          .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
-          .where("time", "<=", admin.firestore.Timestamp.fromDate(end))
+          .where("time", "==", admin.firestore.Timestamp.fromDate(d))
           .get();
 
         if (!appointments.empty) {

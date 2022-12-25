@@ -35,15 +35,8 @@ router.get("/appointments", async function (req, res) {
   const key = req.query.apiKey;
   const guestID = req.query.guestId;
   const id = req.query.appId; 
-  const date = req.query.date;
 
-  let sendData = await FirebaseData.getAppointment(
-    id,
-    guestID,
-    waitTime,
-    date,
-    key
-  );
+  let sendData = await FirebaseData.getAppointment(id, guestID, waitTime, key);
   res.send(sendData);
 });
 
@@ -75,6 +68,15 @@ router.get("/timeslote", async function (req, res) {
 });
 
 
+//
+router.get("/upcoming", async function (req, res) {
+  const key = req.query.apiKey;
+  const location = req.query.location;
+  const time = false;
+
+  let sendData = await FirebaseData.getUpcoming(location, time, key);
+  res.send(sendData);
+});
 
 
 module.exports = router;
