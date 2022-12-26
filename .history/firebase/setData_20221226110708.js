@@ -4,28 +4,6 @@ const { FieldValue } = require("firebase-admin/firestore");
 var admin = require("firebase-admin");
 
 class FirebaseData {
-  static async checkStatus(key) {
-    let ref = db.collection("users");
-    const snapshot = await ref.where("apiKey", "==", key).get();
-    if (snapshot.empty) {
-      return { status: false, message: "API Key not found!" };
-    }
-
-    let user = snapshot.docs[0].data();
-    if (user.statusCode == 1 || user.statusCode == 2 || user.statusCode == 3) {
-      if (user.reqCountCurrent >= user.reqCountMax) {
-        return {
-          status: false,
-          message: "You reached the maximum number of requests!",
-        };
-      } else {
-        return { status: true };
-      }
-    } else {
-      return { status: false, message: "You are not subscribed!" };
-    }
-  }
-
   static setData(collection, data, key) {
     if (
       key == "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
@@ -122,8 +100,10 @@ class FirebaseData {
         return docData;
       }
     } else if (wait && guestID && !id) {
+      console.log("Waiting for guest");
       // get upcoming appointments
       const d = new Date();
+      let time = d.getTime() / 1000;
 
       let appointment = await user
         .collection("appointments")
@@ -219,7 +199,7 @@ class FirebaseData {
     }
   }
 
-  // get upcoming appointment
+  // get guest
   static async getUpcoming(location, guestID, days, key) {
     let ref = db.collection("users");
     const snapshot = await ref.where("apiKey", "==", key).get();

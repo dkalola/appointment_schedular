@@ -4,28 +4,6 @@ const { FieldValue } = require("firebase-admin/firestore");
 var admin = require("firebase-admin");
 
 class FirebaseData {
-  static async checkStatus(key) {
-    let ref = db.collection("users");
-    const snapshot = await ref.where("apiKey", "==", key).get();
-    if (snapshot.empty) {
-      return { status: false, message: "API Key not found!" };
-    }
-
-    let user = snapshot.docs[0].data();
-    if (user.statusCode == 1 || user.statusCode == 2 || user.statusCode == 3) {
-      if (user.reqCountCurrent >= user.reqCountMax) {
-        return {
-          status: false,
-          message: "You reached the maximum number of requests!",
-        };
-      } else {
-        return { status: true };
-      }
-    } else {
-      return { status: false, message: "You are not subscribed!" };
-    }
-  }
-
   static setData(collection, data, key) {
     if (
       key == "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
@@ -122,8 +100,10 @@ class FirebaseData {
         return docData;
       }
     } else if (wait && guestID && !id) {
+      console.log("Waiting for guest");
       // get upcoming appointments
       const d = new Date();
+      let time = d.getTime() / 1000;
 
       let appointment = await user
         .collection("appointments")
@@ -219,8 +199,8 @@ class FirebaseData {
     }
   }
 
-  // get upcoming appointment
-  static async getUpcoming(location, guestID, days, key) {
+  // get guest
+  static async getUpcoming(location, time, guestID, days, key) {
     let ref = db.collection("users");
     const snapshot = await ref.where("apiKey", "==", key).get();
     if (snapshot.empty) {
@@ -229,70 +209,9 @@ class FirebaseData {
     let docID = snapshot.docs[0].id;
     let user = db.collection("users").doc(docID);
 
-    let start = new Date();
-    start.setUTCHours(0, 0, 0, 0);
-
-    let end = new Date();
-    end.setUTCHours(23, 59, 59, 999);
-
-    if (days) {
-      end.setUTCDate(end.getUTCDate() + parseInt(days));
-    }
-
-    if (guestID && !location) {
-      // get by guest id
-      console.log(start);
-      let appointments = await user
-        .collection("appointments")
-        .where("guestID", "==", guestID)
-        .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
-        .where("time", "<=", admin.firestore.Timestamp.fromDate(end))
-        .get();
-
-      if (!appointments.empty) {
-        const docData = new Array();
-
-        appointments.forEach((doc) => {
-          docData.push(doc.data());
-        });
-
-        user.update({
-          reqCountCurrent: FieldValue.increment(1),
-        });
-
-        return docData;
-      } else {
-        return { status: true, message: "No match found!" };
-      }
-
-      // get by guest id end
-    } else if (location && !guestID) {
-      // get by location
-      let appointments = await user
-        .collection("appointments")
-        .where("location", "==", location)
-        .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
-        .where("time", "<=", admin.firestore.Timestamp.fromDate(end))
-        .get();
-
-      if (!appointments.empty) {
-        const docData = new Array();
-
-        appointments.forEach((doc) => {
-          docData.push(doc.data());
-        });
-        user.update({
-          reqCountCurrent: FieldValue.increment(1),
-        });
-
-        return docData;
-      } else {
-        return { status: false, message: "No match found!" };
-      }
-
-      // get by location end
+    if (location) {
     } else {
-      return { status: false, message: "No location or guest id passed!" };
+      return { status: false, message: "No location was passed!" };
     }
   }
 

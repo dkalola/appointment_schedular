@@ -32,14 +32,8 @@ const FirebaseData = require("./firebase/setData.js");
 // Appointments - TESTED
 router.get(
   "/appointments",
-  async function (req, res, next) {
-    const key = req.query.apiKey;
-    let checkUser = await FirebaseData.checkStatus(key);
-    if (checkUser.status) {
-      next();
-    } else {
-      res.send(checkUser);
-    }
+  async function (req, res) {
+    let checkUser = await FirebaseData.getAppointment(key);
   },
   async function (req, res) {
     const waitTime = req.query.time;
@@ -60,49 +54,25 @@ router.get(
 );
 
 // Guests - TESTED
-router.get(
-  "/guests",
-  async function (req, res, next) {
-    const key = req.query.apiKey;
-    let checkUser = await FirebaseData.checkStatus(key);
-    if (checkUser.status) {
-      next();
-    } else {
-      res.send(checkUser);
-    }
-  },
-  async function (req, res) {
-    const key = req.query.apiKey;
-    const id = req.query.guestId;
-    const email = req.query.email;
+router.get("/guests", async function (req, res) {
+  const key = req.query.apiKey;
+  const id = req.query.guestId;
+  const email = req.query.email;
 
-    let sendData = await FirebaseData.getGuest(email, id, key);
-    res.send(sendData);
-  }
-);
+  let sendData = await FirebaseData.getGuest(email, id, key);
+  res.send(sendData);
+});
 
 // Upcoming Appointments on a particular day depending ont the location - TESTED
-router.get(
-  "/upcoming",
-  async function (req, res, next) {
-    const key = req.query.apiKey;
-    let checkUser = await FirebaseData.checkStatus(key);
-    if (checkUser.status) {
-      next();
-    } else {
-      res.send(checkUser);
-    }
-  },
-  async function (req, res) {
-    const key = req.query.apiKey;
-    const location = req.query.location ? req.query.location : false;
-    const guestID = req.query.guestId ? req.query.guestId : false;
-    const days = req.query.days ? req.query.days : false;
+router.get("/upcoming", async function (req, res) {
+  const key = req.query.apiKey;
+  const location = req.query.location ? req.query.location : false;
+  const guestID = req.query.guestId ? req.query.guestId : false;
+  const days = req.query.days ? req.query.days : false;
 
-    let sendData = await FirebaseData.getUpcoming(location, guestID, days, key);
-    res.send(sendData);
-  }
-);
+  let sendData = await FirebaseData.getUpcoming(location, guestID, days, key);
+  res.send(sendData);
+});
 
 
 

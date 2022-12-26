@@ -12,7 +12,7 @@ class FirebaseData {
     }
 
     let user = snapshot.docs[0].data();
-    if (user.statusCode == 1 || user.statusCode == 2 || user.statusCode == 3) {
+    if (user.statusCode != 0 || user.statusCode != -1) {
       if (user.reqCountCurrent >= user.reqCountMax) {
         return {
           status: false,
