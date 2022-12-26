@@ -237,30 +237,6 @@ class FirebaseData {
         } else {
           return { status: true, message: "No match found!" };
         }
-      } else if (days) {
-        let days7 = new Date();
-        days7.setDate(days7.getDate() + days);
-        let appointments = await user
-          .collection("appointments")
-          .where("location", "==", location)
-          .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
-          .where("time", "<=", admin.firestore.Timestamp.fromDate(days7))
-          .get();
-
-        if (!appointments.empty) {
-          const docData = new Array();
-
-          appointments.forEach((doc) => {
-            docData.push(doc.data());
-          });
-          user.update({
-            reqCountCurrent: FieldValue.increment(1),
-          });
-
-          return docData;
-        } else {
-          return { status: true, message: "No match found!" };
-        }
       } else {
         let appointments = await user
           .collection("appointments")

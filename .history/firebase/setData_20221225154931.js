@@ -239,7 +239,7 @@ class FirebaseData {
         }
       } else if (days) {
         let days7 = new Date();
-        days7.setDate(days7.getDate() + days);
+        days7.setDate(days7.getDate() + 7);
         let appointments = await user
           .collection("appointments")
           .where("location", "==", location)

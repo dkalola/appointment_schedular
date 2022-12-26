@@ -239,12 +239,12 @@ class FirebaseData {
         }
       } else if (days) {
         let days7 = new Date();
-        days7.setDate(days7.getDate() + days);
+        days7.setDate(days7.getDate() + 7);
         let appointments = await user
           .collection("appointments")
           .where("location", "==", location)
           .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
-          .where("time", "<=", admin.firestore.Timestamp.fromDate(days7))
+          .where("time", "<=", admin.firestore.Timestamp.fromDate(end))
           .get();
 
         if (!appointments.empty) {

@@ -64,7 +64,7 @@ router.get("/upcoming", async function (req, res) {
   const time = false;
   const days = req.query.days;
 
-  let sendData = await FirebaseData.getUpcoming(location, time, days, key);
+  let sendData = await FirebaseData.getUpcoming(location, time, key);
   res.send(sendData);
 });
 

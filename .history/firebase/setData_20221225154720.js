@@ -32,7 +32,7 @@ class FirebaseData {
 
   // get Appointment
 
-  static async getAppointment(id, guestID, wait, date, key) {
+  static async getAppointment(id, guestID, wait, days, key) {
     let ref = db.collection("users");
     const snapshot = await ref.where("apiKey", "==", key).get();
     if (snapshot.empty) {
@@ -200,7 +200,7 @@ class FirebaseData {
   }
 
   // get guest
-  static async getUpcoming(location, time, days, key) {
+  static async getUpcoming(location, time, key) {
     let ref = db.collection("users");
     const snapshot = await ref.where("apiKey", "==", key).get();
     if (snapshot.empty) {
@@ -221,30 +221,6 @@ class FirebaseData {
           .where("location", "==", location)
           .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
           .where("time", "<=", admin.firestore.Timestamp.fromDate(end))
-          .get();
-
-        if (!appointments.empty) {
-          const docData = new Array();
-
-          appointments.forEach((doc) => {
-            docData.push(doc.data());
-          });
-          user.update({
-            reqCountCurrent: FieldValue.increment(1),
-          });
-
-          return docData;
-        } else {
-          return { status: true, message: "No match found!" };
-        }
-      } else if (days) {
-        let days7 = new Date();
-        days7.setDate(days7.getDate() + days);
-        let appointments = await user
-          .collection("appointments")
-          .where("location", "==", location)
-          .where("time", ">=", admin.firestore.Timestamp.fromDate(start))
-          .where("time", "<=", admin.firestore.Timestamp.fromDate(days7))
           .get();
 
         if (!appointments.empty) {
