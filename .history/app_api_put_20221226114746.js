@@ -40,30 +40,18 @@ router.put(
 );
 
 // update sub data
-router.put(
-  "/guest",
-  async function (req, res, next) {
-    const key = req.query.apiKey;
-    let checkUser = await FirebaseData.checkStatus(key);
-    if (checkUser.status) {
-      next();
-    } else {
-      res.send(checkUser);
-    }
-  },
-  async function (req, res) {
-    const key = req.query.apiKey;
-    const data = req.body;
-    const guest = new Guest({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-    });
+router.put("/guest", async function (req, res) {
+  const key = req.query.apiKey;
+  const data = req.body;
+  const guest = new Guest({
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+  });
 
-    var output = await FirebaseData.updateGuest(req.query.guestId, guest, key);
-    res.status(201).send(output);
-  }
-);
+  var output = await FirebaseData.updateGuest(req.query.guestId, guest, key);
+  res.status(201).send(output);
+});
 
 
 

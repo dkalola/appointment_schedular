@@ -147,81 +147,69 @@ router.post(
   }
 );
 
-router.post(
-  "/userinfo",
-  async function (req, res, next) {
-    const key = req.query.apiKey;
-    let checkUser = await FirebaseData.checkStatus(key);
-    if (checkUser.status) {
-      next();
-    } else {
-      res.send(checkUser);
-    }
-  },
-  async function (req, res) {
-    const key = req.query.apiKey;
-    const data = req.body;
+router.post("/userinfo", async function (req, res) {
+  const key = req.query.apiKey;
+  const data = req.body;
 
-    const userUpdateData = {
-      id: data.id,
-      name: data.name,
-      phone: data.phone,
-      slotSize: data.slotSize,
-      dateTimeRange: [
-        {
-          day: "mon",
-          start: data.mon_start ? data.mon_start : "",
-          end: data.mon_end ? data.mon_end : "",
-        },
-        {
-          day: "tue",
-          start: data.tue_start ? data.tue_start : "",
-          end: data.tue_end ? data.tue_end : "",
-        },
-        {
-          day: "wed",
-          start: data.wed_start ? data.wed_start : "",
-          end: data.wed_end ? data.wed_end : "",
-        },
-        {
-          day: "thu",
-          start: data.thu_start ? data.thu_start : "",
-          end: data.thu_end ? data.thu_end : "",
-        },
-        {
-          day: "fri",
-          start: data.fri_start ? data.fri_start : "",
-          end: data.fri_end ? data.fri_end : "",
-        },
-        {
-          day: "sat",
-          start: data.sat_start ? data.sat_start : "",
-          end: data.sat_end ? data.sat_end : "",
-        },
-        {
-          day: "sun",
-          start: data.sun_start ? data.sun_start : "",
-          end: data.sun_end ? data.sun_end : "",
-        },
-      ],
-    };
+  const userUpdateData = {
+    id: data.id,
+    name: data.name,
+    phone: data.phone,
+    slotSize: data.slotSize,
+    dateTimeRange: [
+      {
+        day: "mon",
+        start: data.mon_start ? data.mon_start : "",
+        end: data.mon_end ? data.mon_end : "",
+      },
+      {
+        day: "tue",
+        start: data.tue_start ? data.tue_start : "",
+        end: data.tue_end ? data.tue_end : "",
+      },
+      {
+        day: "wed",
+        start: data.wed_start ? data.wed_start : "",
+        end: data.wed_end ? data.wed_end : "",
+      },
+      {
+        day: "thu",
+        start: data.thu_start ? data.thu_start : "",
+        end: data.thu_end ? data.thu_end : "",
+      },
+      {
+        day: "fri",
+        start: data.fri_start ? data.fri_start : "",
+        end: data.fri_end ? data.fri_end : "",
+      },
+      {
+        day: "sat",
+        start: data.sat_start ? data.sat_start : "",
+        end: data.sat_end ? data.sat_end : "",
+      },
+      {
+        day: "sun",
+        start: data.sun_start ? data.sun_start : "",
+        end: data.sun_end ? data.sun_end : "",
+      },
+    ],
+  };
 
-    console.log(userUpdateData);
+  console.log(userUpdateData);
 
-    var output = await FirebaseData.updateUser(
-      userUpdateData.id,
-      userUpdateData,
-      "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
-    );
-    if (output) {
-      // res.status(201).redirect("/user");
-      res.redirect(req.get("referer"));
-    } else {
-      // res.status(201).redirect("/user");
-      res.redirect(req.get("referer"));
-    }
+  var output = await FirebaseData.updateUser(
+    userUpdateData.id,
+    userUpdateData,
+    "4173c4a9edff6a1d4850c3e25ed462c0df670cd9218beac91a5f9ae1be57b629"
+  );
+  if (output) {
+    // res.status(201).redirect("/user");
+    res.redirect(req.get("referer"));
+  } else {
+    // res.status(201).redirect("/user");
+    res.redirect(req.get("referer"));
   }
-);
+});
 
 
 
